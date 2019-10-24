@@ -1,0 +1,65 @@
+// proto3記法であることを表している
+syntax = "proto3";
+
+package faq;
+
+/*
+   message命名規則(ベストプラクティスはどんなものだろう……)
+ *Component : Request/Responseに用いるコンポーネント
+ Faq[Action]Request : Action用リスエスト内容
+ Faq[Action]Response : Action用レスポンス内容
+*/
+
+// TODO
+message FaqComponent {
+    string faq_name = 1;
+    bool is_done = 2;
+}
+
+// サーバーからのレスポンス(共通)
+message ServerResponseComponent {
+    bool is_success = 1;
+    string message = 2;
+}
+
+// TODOを作成するときのリクエスト
+message FaqCreateRequest {
+    string faq_name = 1;
+    string timestamp = 3;
+}
+
+// TODOを作成するときのレスポンス
+// messageの中に別のmessageを含むことができる
+message FaqCreateResponse {
+    ServerResponseComponent response = 1;
+    string timestamp = 2;
+}
+
+
+message FaqShowRequest {
+    string timestamp = 1;
+}
+
+// repeated SOMETHING = SOMETHING[]
+message FaqShowResponse {
+    repeated FaqComponent faqs = 1;
+    string timestamp = 3;
+}
+
+message FaqUpdateRequest {
+    FaqComponent faq = 1;
+    string timestamp = 2;
+}
+
+message FaqUpdateResponse {
+    ServerResponseComponent response = 1;
+    string timestamp = 2;
+}
+
+// ルーティング
+service FaqGateway {
+    rpc FaqCreate (FaqCreateRequest) returns (FaqCreateResponse) {}
+    rpc FaqShow (FaqShowRequest) returns (FaqShowResponse) {};
+    rpc FaqUpdate (FaqUpdateRequest) returns (FaqUpdateResponse) {}
+}
+

@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  faq_front:
+    networks:
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.backend=faq_front
+      - traefik.passHostHeader=true
+      - traefik.frontend.rule=PathPrefix:/faq/
+      # wordpress のTraefik上のバックエンド名を記載
+      - "traefik.docker.network=web"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.protocol=http"

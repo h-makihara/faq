@@ -1,0 +1,83 @@
+version: '3.3'
+
+services:
+  faq_front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      args:
+          - http_proxy=$http_proxy
+          - https_proxy=$http_proxy
+    container_name: faq_front
+    links:
+      - faq_api:API
+    ports:
+      - 25252:80
+    volumes:
+      - './front/sources/:/app:ro'
+    tty: true
+
+    #  faq_grpc:
+    #build:
+    #  context: ./grpc
+    #  dockerfile: Dockerfile
+    #  args:
+    #      - http_proxy=$http_proxy
+    #      - https_proxy=$http_proxy
+    #networks:
+    #  - web
+    #container_name: faq_grpc
+    #env_file:
+    #  - .env
+    #links:
+    #  - faq_api:API
+    #volumes:
+    #  - './grpc/sources/:/app:ro'
+    #tty: true
+
+  faq_api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      args:
+          - http_proxy=$http_proxy
+          - https_proxy=$http_proxy
+    container_name: faq_api
+    networks:
+      - web
+      - dbnw
+    links:
+      - faq_db:DB
+    env_file:
+      - .env
+    volumes:
+      - './api/sources/:/app:ro'
+    tty: true
+
+  faq_db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+      args:
+          - http_proxy=$http_proxy
+          - https_proxy=$http_proxy
+    networks:
+      - dbnw
+    container_name: faq_db
+    volumes:
+      - 'faq_vol:/var/lib/mysql'
+    labels:
+      # traefik で監視・リバースプロキシしない
+      - 'traefik.enable=false'
+    ports:
+      - 3306:3306
+    tty: true
+    env_file:
+      - .env
+
+volumes:
+  faq_vol:
+
+networks:
+  dbnw:
+  web:
