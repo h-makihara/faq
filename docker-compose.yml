@@ -65,7 +65,7 @@ services:
       - dbnw
     container_name: faq_db
     volumes:
-      - 'faq_vol:/var/lib/mysql'
+      - 'faq_vol:/var/lib/mysql:rw'
     labels:
       # traefik で監視・リバースプロキシしない
       - 'traefik.enable=false'

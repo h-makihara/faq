@@ -5,14 +5,13 @@ from concurrent import futures
 from datetime import datetime
 import time
 import grpc
-
+import con_db
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 
 def get_timestamp():
     return datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-
 
 class RouteFaqServicer(FaqGatewayServicer):
     """
@@ -29,11 +28,11 @@ class RouteFaqServicer(FaqGatewayServicer):
         try:
             self.faqs[request.faq_name] = FaqComponent(
                 qid = request.qid,
-                basic.share = request.basic.share,
-                basic.service_name = request.service_name,
-                faq.lang = request.faq.lang,
-                faq.question = request.faq.question,
-                faq.answer = request.faq.answer
+                share = request.share,
+                service_name = request.service_name,
+                lang = request.faq.lang,
+                question = request.faq.question,
+                answer = request.faq.answer
                 
                 # 参考にしたソースのメモなので残す
                 # todo_name=request.todo_name,
@@ -60,12 +59,17 @@ class RouteFaqServicer(FaqGatewayServicer):
         print("Faq Show Called : %s" % request.timestamp)
         try:
             faq_list = [
-                faq for faq in self.faqs.values()
+                # ここでDB接続してデータ取ってくる
+                con_db.GetData()
+                # これは参考にした元ソース
+                #faq for faq in self.faqs.values()
             ]
         except:
             import traceback
             traceback.print_exc()
             faq_list = []
+        print(con_db.GetData())
+        print("return %s : %s" % (faq_list, get_timestamp()))
         return FaqShowResponse(faqs=faq_list, timestamp=get_timestamp())
 
     def FaqUpdate(self, request, response):

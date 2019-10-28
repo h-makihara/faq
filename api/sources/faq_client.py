@@ -16,11 +16,11 @@ def create_faq(stub, qid, share, service_name, lang, question, answer):
     # FaqGatewayにはFaqCreateメソッドが実装されているはず
     response = stub.FaqCreate(FaqCreateRequest(
         qid=qid,
-        basic.share = share,
-        basic.service_name = service_name,
-        faq.lang = lang,
-        faq.question = question,
-        faq.answer = answer
+        share = share,
+        service_name = service_name,
+        lang = lang,
+        question = question,
+        answer = answer
     ))
     #response = stub.FaqCreate(FaqCreateRequest(
     #    faq_name=faq_name,
@@ -41,10 +41,10 @@ def show_faqs(stub):
     )
 
     print("---- Faq Name : is done? ----")
-
+    print(response)
     # レスポンスの中のTODOリストにアクセス
     for faq in response.faqs:
-        print("%s : %s" % (faq.faq_name, faq.is_done))
+        print("%s : %s" % (faq.qid, faq.is_done))
 
     print("")
 
