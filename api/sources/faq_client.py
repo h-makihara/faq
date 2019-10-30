@@ -40,8 +40,15 @@ def show_faqs(stub):
         )
     )
 
-    print("---- Faq Name : is done? ----")
-    print(response)
+    print("---- Faq Items ----")
+    for item in response.faq:
+        print("QID : %s" % item.qid)
+        print("share : %s" % item.share)
+        print("service_name : %s" % item.service_name)
+        print("lang : %s" % item.lang)
+        print("question : %s" % item.question)
+        print("answer : %s" % item.answer)
+    #print(response)
     # レスポンスの中のTODOリストにアクセス
     #for faq in response:
     #    print("%s : %s" % (faq.qid, faq.question))

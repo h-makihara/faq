@@ -46,16 +46,7 @@ message FaqShowRequest {
 
 // repeated SOMETHING = SOMETHING[]
 message FaqShowResponse {
-    //message faqs {
-    //    uint32 qid =2;
-    //    uint32 share = 3;
-    //    string service_name = 4;
-    //    string lang = 5;
-    //    string question = 6;
-    //    string answer = 7;
-    //}
     repeated FaqComponent faq = 1;
-    //string timestamp = 8;
 }
 
 message FaqUpdateRequest {

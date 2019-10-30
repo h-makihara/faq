@@ -60,7 +60,7 @@ class RouteFaqServicer(FaqGatewayServicer):
         faqs = []
         # response data
         res = FaqShowResponse().faq
-        for x in dir(res):
+        for x in dir(self.faqs):
             print(x)
         # temp data for response
         tmp = res.add()
