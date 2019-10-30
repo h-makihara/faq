@@ -58,9 +58,12 @@ class RouteFaqServicer(FaqGatewayServicer):
     def FaqShow(self, request, response):
         print("Faq Show Called : %s" % request.timestamp)
         faqs = []
-        res = FaqShowResponse()
-        for x in dir(res.answer):
+        # response data
+        res = FaqShowResponse().faq
+        for x in dir(res):
             print(x)
+        # temp data for response
+        tmp = res.add()
         try:
             # ここでDB接続してデータ取ってくる
             faq_list = con_db.GetData()
@@ -74,24 +77,14 @@ class RouteFaqServicer(FaqGatewayServicer):
             faq_list = []
 
         for faq in faq_list:
-            print(faq.get("QID"))
-            res.qid = faq.get("QID")
-            res.share=faq.get("share")
-            res.service_name=faq.get("service")
-            res.lang=faq.get("lang")
-            res.question=faq.get("question")
-            res.answer=faq.get("answer")
-            faqs.append(res)
-        #print(faq_list)
-        #print("list type %s len %s" % (type(faq_list), len(faq_list)))
-        #return FaqShowResponse(faqs=faq_list, timestamp=get_timestamp())
-        return FaqShowResponse(qid=faq_list[0].get("QID"),
-                               share=faq_list[0].get("share"),
-                               service_name=faq_list[0].get("service"),
-                               lang=faq_list[0].get("lang"),
-                               question=faq_list[0].get("question"),
-                               answer=faq_list[0].get("answer"),
-                               )
+            tmp.qid = faq.get("QID")
+            tmp.share=faq.get("share")
+            tmp.service_name=faq.get("service")
+            tmp.lang=faq.get("lang")
+            tmp.question=faq.get("question")
+            tmp.answer=faq.get("answer")
+            print(res)
+        return FaqShowResponse(faq=res)
 
     def FaqUpdate(self, request, response):
         print("Faq Update Called : %s" % request.timestamp)

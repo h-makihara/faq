@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='faq',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\tfaq.proto\x12\x03\x66\x61q\"p\n\x0c\x46\x61qComponent\x12\x0b\n\x03qid\x18\x01 \x01(\r\x12\r\n\x05share\x18\x02 \x01(\r\x12\x14\n\x0cservice_name\x18\x03 \x01(\t\x12\x0c\n\x04lang\x18\x04 \x01(\t\x12\x10\n\x08question\x18\x05 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x06 \x01(\t\">\n\x17ServerResponseComponent\x12\x12\n\nis_success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"I\n\x10\x46\x61qCreateRequest\x12\"\n\x07\x66\x61qData\x18\x01 \x03(\x0b\x32\x11.faq.FaqComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t\"V\n\x11\x46\x61qCreateResponse\x12.\n\x08response\x18\x01 \x01(\x0b\x32\x1c.faq.ServerResponseComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t\"#\n\x0e\x46\x61qShowRequest\x12\x11\n\ttimestamp\x18\x01 \x01(\t\"s\n\x0f\x46\x61qShowResponse\x12\x0b\n\x03qid\x18\x02 \x01(\r\x12\r\n\x05share\x18\x03 \x01(\r\x12\x14\n\x0cservice_name\x18\x04 \x01(\t\x12\x0c\n\x04lang\x18\x05 \x01(\t\x12\x10\n\x08question\x18\x06 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x07 \x01(\t\"E\n\x10\x46\x61qUpdateRequest\x12\x1e\n\x03\x66\x61q\x18\x01 \x01(\x0b\x32\x11.faq.FaqComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t\"V\n\x11\x46\x61qUpdateResponse\x12.\n\x08response\x18\x01 \x01(\x0b\x32\x1c.faq.ServerResponseComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t2\xc0\x01\n\nFaqGateway\x12<\n\tFaqCreate\x12\x15.faq.FaqCreateRequest\x1a\x16.faq.FaqCreateResponse\"\x00\x12\x36\n\x07\x46\x61qShow\x12\x13.faq.FaqShowRequest\x1a\x14.faq.FaqShowResponse\"\x00\x12<\n\tFaqUpdate\x12\x15.faq.FaqUpdateRequest\x1a\x16.faq.FaqUpdateResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\tfaq.proto\x12\x03\x66\x61q\"p\n\x0c\x46\x61qComponent\x12\x0b\n\x03qid\x18\x01 \x01(\r\x12\r\n\x05share\x18\x02 \x01(\r\x12\x14\n\x0cservice_name\x18\x03 \x01(\t\x12\x0c\n\x04lang\x18\x04 \x01(\t\x12\x10\n\x08question\x18\x05 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x06 \x01(\t\">\n\x17ServerResponseComponent\x12\x12\n\nis_success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"I\n\x10\x46\x61qCreateRequest\x12\"\n\x07\x66\x61qData\x18\x01 \x03(\x0b\x32\x11.faq.FaqComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t\"V\n\x11\x46\x61qCreateResponse\x12.\n\x08response\x18\x01 \x01(\x0b\x32\x1c.faq.ServerResponseComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t\"#\n\x0e\x46\x61qShowRequest\x12\x11\n\ttimestamp\x18\x01 \x01(\t\"1\n\x0f\x46\x61qShowResponse\x12\x1e\n\x03\x66\x61q\x18\x01 \x03(\x0b\x32\x11.faq.FaqComponent\"E\n\x10\x46\x61qUpdateRequest\x12\x1e\n\x03\x66\x61q\x18\x01 \x01(\x0b\x32\x11.faq.FaqComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t\"V\n\x11\x46\x61qUpdateResponse\x12.\n\x08response\x18\x01 \x01(\x0b\x32\x1c.faq.ServerResponseComponent\x12\x11\n\ttimestamp\x18\x02 \x01(\t2\xc0\x01\n\nFaqGateway\x12<\n\tFaqCreate\x12\x15.faq.FaqCreateRequest\x1a\x16.faq.FaqCreateResponse\"\x00\x12\x36\n\x07\x46\x61qShow\x12\x13.faq.FaqShowRequest\x1a\x14.faq.FaqShowResponse\"\x00\x12<\n\tFaqUpdate\x12\x15.faq.FaqUpdateRequest\x1a\x16.faq.FaqUpdateResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -245,44 +245,9 @@ _FAQSHOWRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='qid', full_name='faq.FaqShowResponse.qid', index=0,
-      number=2, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='share', full_name='faq.FaqShowResponse.share', index=1,
-      number=3, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='service_name', full_name='faq.FaqShowResponse.service_name', index=2,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='lang', full_name='faq.FaqShowResponse.lang', index=3,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='question', full_name='faq.FaqShowResponse.question', index=4,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='answer', full_name='faq.FaqShowResponse.answer', index=5,
-      number=7, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='faq', full_name='faq.FaqShowResponse.faq', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -299,7 +264,7 @@ _FAQSHOWRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=396,
-  serialized_end=511,
+  serialized_end=445,
 )
 
 
@@ -336,8 +301,8 @@ _FAQUPDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=513,
-  serialized_end=582,
+  serialized_start=447,
+  serialized_end=516,
 )
 
 
@@ -374,12 +339,13 @@ _FAQUPDATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=584,
-  serialized_end=670,
+  serialized_start=518,
+  serialized_end=604,
 )
 
 _FAQCREATEREQUEST.fields_by_name['faqData'].message_type = _FAQCOMPONENT
 _FAQCREATERESPONSE.fields_by_name['response'].message_type = _SERVERRESPONSECOMPONENT
+_FAQSHOWRESPONSE.fields_by_name['faq'].message_type = _FAQCOMPONENT
 _FAQUPDATEREQUEST.fields_by_name['faq'].message_type = _FAQCOMPONENT
 _FAQUPDATERESPONSE.fields_by_name['response'].message_type = _SERVERRESPONSECOMPONENT
 DESCRIPTOR.message_types_by_name['FaqComponent'] = _FAQCOMPONENT
@@ -456,8 +422,8 @@ _FAQGATEWAY = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=673,
-  serialized_end=865,
+  serialized_start=607,
+  serialized_end=799,
   methods=[
   _descriptor.MethodDescriptor(
     name='FaqCreate',
