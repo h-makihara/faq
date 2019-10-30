@@ -43,8 +43,8 @@ def show_faqs(stub):
     print("---- Faq Name : is done? ----")
     print(response)
     # レスポンスの中のTODOリストにアクセス
-    for faq in response.faqs:
-        print("%s : %s" % (faq.qid, faq.is_done))
+    #for faq in response:
+    #    print("%s : %s" % (faq.qid, faq.question))
 
     print("")
 

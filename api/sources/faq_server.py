@@ -57,20 +57,41 @@ class RouteFaqServicer(FaqGatewayServicer):
 
     def FaqShow(self, request, response):
         print("Faq Show Called : %s" % request.timestamp)
+        faqs = []
+        res = FaqShowResponse()
+        for x in dir(res.answer):
+            print(x)
         try:
-            faq_list = [
-                # ここでDB接続してデータ取ってくる
-                con_db.GetData()
-                # これは参考にした元ソース
-                #faq for faq in self.faqs.values()
-            ]
+            # ここでDB接続してデータ取ってくる
+            faq_list = con_db.GetData()
+            # これは参考にした元ソース
+            #faq_list = [
+            #    faq for faq in self.faqs.values()
+            #]
         except:
             import traceback
             traceback.print_exc()
             faq_list = []
-        print(con_db.GetData())
-        print("return %s : %s" % (faq_list, get_timestamp()))
-        return FaqShowResponse(faqs=faq_list, timestamp=get_timestamp())
+
+        for faq in faq_list:
+            print(faq.get("QID"))
+            res.qid = faq.get("QID")
+            res.share=faq.get("share")
+            res.service_name=faq.get("service")
+            res.lang=faq.get("lang")
+            res.question=faq.get("question")
+            res.answer=faq.get("answer")
+            faqs.append(res)
+        #print(faq_list)
+        #print("list type %s len %s" % (type(faq_list), len(faq_list)))
+        #return FaqShowResponse(faqs=faq_list, timestamp=get_timestamp())
+        return FaqShowResponse(qid=faq_list[0].get("QID"),
+                               share=faq_list[0].get("share"),
+                               service_name=faq_list[0].get("service"),
+                               lang=faq_list[0].get("lang"),
+                               question=faq_list[0].get("question"),
+                               answer=faq_list[0].get("answer"),
+                               )
 
     def FaqUpdate(self, request, response):
         print("Faq Update Called : %s" % request.timestamp)

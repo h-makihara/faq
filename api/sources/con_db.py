@@ -1,4 +1,5 @@
 import pymysql.cursors
+import prettytable
 
 conn = pymysql.connect(
         host='faq_db',
@@ -10,6 +11,8 @@ conn = pymysql.connect(
         )
 
 def GetData():
+    response = []
+    result = []
     try:
         with conn.cursor() as cursor:
             # FaqComponent.faq response
@@ -19,19 +22,40 @@ def GetData():
             #sql = "SELECT question,answer FROM faq WHERE answer LIKE %s"
             #sql = "SELECT question,answer FROM faq WHERE qid = %s"
             cursor.execute(a_sql, ('%大量送信%',))
-            a_result = cursor.fetchall()
-            print(a_result)
+            result = cursor.fetchall()
             
-            for state in a_result:
+            for state in result:
                 b_sql = "SELECT share,service FROM basic WHERE QID = %s"
                 cursor.execute(b_sql, state.get('QID'))
                 b_result = cursor.fetchall()
-            print(b_result)
+            i = 0
+            for i in range(len(result)):
+                result[i].update(b_result[i])
+                i += 1
 
     finally:
-        conn.close()
+        table = prettytable.PrettyTable(["Name", "Value", "type"])
 
-    return a_result,b_result
+        for index in range(len(result)):
+            qid = int(result[index].get('QID'))
+            share = int(result[index].get('share'))
+            s_name = result[index].get('service')
+            lang = result[index].get('lang')
+            question = result[index].get('question')
+            answer = result[index].get('answer')
+            
+            # for logs to prettytable
+            table.add_row(["QID", qid, type(qid)])
+            table.add_row(["share", share, type(share)])
+            table.add_row(["s_name", s_name, type(s_name)])
+            table.add_row(["lang", lang, type(lang)])
+            table.add_row(["question", question, type(question)])
+            table.add_row(["answer", answer, type(answer)])
+
+        print("response data\n%s" % table)
+        return result
+        #conn.close()
+
 
 if __name__=='__main__':
     try:

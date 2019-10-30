@@ -13,16 +13,11 @@ package faq;
 // FAQ
 message FaqComponent {
     uint32 qid =1;
-    message basic {
-        uint32 share = 2;
-        string service_name = 3;
-    }
-
-    message faq {
-        string lang = 4;
-        string question = 5;
-        string answer = 6;
-    }
+    uint32 share = 2;
+    string service_name = 3;
+    string lang = 4;
+    string question = 5;
+    string answer = 6;
 }
 
 // サーバーからのレスポンス(共通)
@@ -51,8 +46,16 @@ message FaqShowRequest {
 
 // repeated SOMETHING = SOMETHING[]
 message FaqShowResponse {
-    repeated FaqComponent faqs = 1;
-    string timestamp = 2;
+    //message faqs {
+        uint32 qid =2;
+        uint32 share = 3;
+        string service_name = 4;
+        string lang = 5;
+        string question = 6;
+        string answer = 7;
+    //}
+    //repeated faqs faq = 1;
+    //string timestamp = 8;
 }
 
 message FaqUpdateRequest {
