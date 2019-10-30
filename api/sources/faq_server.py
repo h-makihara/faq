@@ -66,6 +66,7 @@ class RouteFaqServicer(FaqGatewayServicer):
         tmp = res.add()
         try:
             # ここでDB接続してデータ取ってくる
+            # ここは将来的にAPIを叩いて取ってくる
             faq_list = con_db.GetData()
             # これは参考にした元ソース
             #faq_list = [
