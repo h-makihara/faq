@@ -9,20 +9,21 @@ ARG https_proxy=$https_proxy
 RUN apk update \
     && apk upgrade \
     && apk add -U --no-cache perl openssl \
-    && apk add --no-cache --virtual git \
+    && apk add --no-cache --virtual .system-tools \
+                                    git \
                                     curl \
                                     bash \
                                     mysql-client \
                                     python3 \
+                                    build-base 
+RUN apk update \
+    && apk upgrade \
+    && apk add --no-cache --virtual .build-deps \
                                     make \
                                     linux-headers \
-                                    build-base \
-                                    #.build-deps \
                                     gcc musl-dev \
-                                    python3-dev \
-                                    protobuf
+                                    python3-dev
 
 RUN pip3 install --upgrade pip \
+    && pip3 install prettytable \
     && pip3 install pymysql \
-    && pip3 install cython \
-    && pip3 install grpcio-tools

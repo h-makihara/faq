@@ -11,29 +11,38 @@ services:
     container_name: faq_front
     links:
       - faq_api:API
+    networks:
+      - web
+      - backend
+    links:
+      - faq_grpc:gRPC
     ports:
       - 25252:80
     volumes:
-      - './front/sources/:/app:ro'
+      - './front/sources/:/app:rw'
+      - './protos/:/app/protos:ro'
     tty: true
 
-    #  faq_grpc:
-    #build:
-    #  context: ./grpc
-    #  dockerfile: Dockerfile
-    #  args:
-    #      - http_proxy=$http_proxy
-    #      - https_proxy=$http_proxy
-    #networks:
-    #  - web
-    #container_name: faq_grpc
-    #env_file:
-    #  - .env
-    #links:
-    #  - faq_api:API
-    #volumes:
-    #  - './grpc/sources/:/app:ro'
-    #tty: true
+  faq_grpc:
+    build:
+      context: ./grpc
+      dockerfile: Dockerfile
+      args:
+          - http_proxy=$http_proxy
+          - https_proxy=$http_proxy
+    networks:
+      - backend
+    container_name: faq_grpc
+    env_file:
+      - .env
+    links:
+      - faq_api:API
+      # this link is test state
+      - faq_db:DB
+    volumes:
+      - './grpc/sources/:/app:rw'
+      - './protos/:/app/protos:rw'
+    tty: true
 
   faq_api:
     build:
@@ -44,7 +53,7 @@ services:
           - https_proxy=$http_proxy
     container_name: faq_api
     networks:
-      - web
+      - backend
       - dbnw
     links:
       - faq_db:DB
@@ -81,3 +90,4 @@ volumes:
 networks:
   dbnw:
   web:
+  backend:

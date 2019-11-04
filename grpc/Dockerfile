@@ -1,7 +1,8 @@
+# gRPC Dockerfile
 FROM alpine:latest
 LABEL maintainer='h-makihara<macky0325@gmail.com>'
 
-ARG VERSION
+#ARG VERSION
 ARG http_proxy=$http_proxy
 ARG https_proxy=$https_proxy
 
@@ -9,22 +10,23 @@ ARG https_proxy=$https_proxy
 RUN apk update \
     && apk upgrade \
     && apk add -U --no-cache perl openssl \
-    && apk add --no-cache git \
-                          curl \
-                          bash \
-                          mysql-client \
-                          make \
-                          linux-headers \
-                          build-base \
-                          protobuf \
-                          go \
-                          musl-dev
+    && apk add --no-cache --virtual .system-tools \
+                                    git \
+                                    curl \
+                                    bash \
+                                    mysql-client \
+                                    python3 \
+                                    make \
+                                    linux-headers \
+                                    build-base 
+# development
+RUN apk add --no-cache --virtual .build-deps \
+                                 gcc musl-dev \
+                                 python3-dev \
+                                 protobuf
 
-# go gRPC setup
-RUN go get -u google.golang.org/grpc \
-    && go get -u github.com/golang/protobuf/protoc-gen-go
-
-#RUN pip3 install --upgrade pip \
-#    && pip3 install pymysql \
-#    && pip3 install cython \
-#    && pip3 install grpcio-tools
+RUN pip3 install --upgrade pip \
+    && pip3 install prettytable \
+    && pip3 install pymysql \
+    && pip3 install cython \
+    && pip3 install grpcio-tools
