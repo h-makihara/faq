@@ -36,3 +36,8 @@ Python による API サーバ(になる予定)
     - answer  
       回答内容  
       必ず lang で宣言した言語で書く
+
+# 注意
+faq_pb2_grpc.py の faq_pb2 を import する行が、 Python の現在の仕様で  
+import に失敗する  
+この場合、 4 行目の行頭に from . を追記する。  
