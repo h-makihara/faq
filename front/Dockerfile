@@ -2,6 +2,9 @@
 FROM alpine:latest
 LABEL maintainer='h-makihara<macky0325@gmail.com>'
 
+# copy source and protocols
+WORKDIR /app
+
 #ARG VERSION
 ARG http_proxy=$http_proxy
 ARG https_proxy=$https_proxy
