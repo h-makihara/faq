@@ -5,6 +5,7 @@ from concurrent import futures
 from datetime import datetime
 import time
 import grpc
+from modules import api
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -66,7 +67,7 @@ class RouteFaqServicer(FaqGatewayServicer):
         try:
             # ここでDB接続してデータ取ってくる
             # ここは将来的にAPIを叩いて取ってくる
-            faq_list = con_db.GetData()
+            faq_list = api.GetData()
             # これは参考にした元ソース
             #faq_list = [
             #    faq for faq in self.faqs.values()

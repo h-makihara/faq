@@ -10,7 +10,7 @@ conn = pymysql.connect(
         cursorclass=pymysql.cursors.DictCursor
         )
 
-def GetData():
+def GetData(word):
     response = []
     result = []
     try:
@@ -21,7 +21,8 @@ def GetData():
             a_sql = "SELECT * FROM faq WHERE answer LIKE %s"
             #sql = "SELECT question,answer FROM faq WHERE answer LIKE %s"
             #sql = "SELECT question,answer FROM faq WHERE qid = %s"
-            cursor.execute(a_sql, ('%大量送信%',))
+            #cursor.execute(a_sql, ('%大量送信%',))
+            cursor.execute(a_sql, ('%'+ word +'%',))
             result = cursor.fetchall()
             
             for state in result:
