@@ -18,13 +18,14 @@ def GetData(word):
             # FaqComponent.faq response
             # a_ is answer sql state
             # b_ is basic sql state
-            a_sql = "SELECT * FROM faq WHERE answer LIKE %s"
+            print("search word is %s" % word)
+            a_sql = "SELECT * FROM faq WHERE qid = %s"
             #sql = "SELECT question,answer FROM faq WHERE answer LIKE %s"
             #sql = "SELECT question,answer FROM faq WHERE qid = %s"
             #cursor.execute(a_sql, ('%大量送信%',))
-            cursor.execute(a_sql, ('%'+ word +'%',))
+            cursor.execute(a_sql, (word,))
             result = cursor.fetchall()
-            
+            print(result)
             for state in result:
                 b_sql = "SELECT share,service FROM basic WHERE QID = %s"
                 cursor.execute(b_sql, state.get('QID'))

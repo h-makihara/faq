@@ -60,14 +60,16 @@ class RouteFaqServicer(FaqGatewayServicer):
         faqs = []
         # response data
         res = FaqShowResponse().faq
-        for x in dir(self.faqs):
-            print(x)
         # temp data for response
         tmp = res.add()
         try:
             # ここでDB接続してデータ取ってくる
             # ここは将来的にAPIを叩いて取ってくる
-            faq_list = api.GetData()
+            # faq_list = api.GetData()
+            api_answer = api.GetData()
+            # response data debug print
+            print("---- response data ----\n%s----end----\n" % list(api_answer.json()[0].keys()))
+            faq_list = api_answer.json()
             # これは参考にした元ソース
             #faq_list = [
             #    faq for faq in self.faqs.values()
@@ -76,6 +78,9 @@ class RouteFaqServicer(FaqGatewayServicer):
             import traceback
             traceback.print_exc()
             faq_list = []
+
+        print("---- faq list ----\n%s\n---- end ----\nfaq_list type is %s" % (faq_list,type(faq_list)))
+
 
         for faq in faq_list:
             tmp.qid = faq.get("QID")
