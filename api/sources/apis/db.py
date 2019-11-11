@@ -17,4 +17,6 @@ class TodoSimple(Resource):
 class dbControl(Resource):
     def get(self, search):
         return con_db.GetData(search)
+    def put(self, faq):
+        return PutData(request.get_json())
 

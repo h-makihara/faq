@@ -7,6 +7,7 @@ conn = pymysql.connect(
         db='faq',
         password='faq_pass',
         charset='utf8mb4',
+        # Dict型で受け取る
         cursorclass=pymysql.cursors.DictCursor
         )
 
@@ -37,26 +38,78 @@ def GetData(word):
 
     finally:
         table = prettytable.PrettyTable(["Name", "Value", "type"])
-
-        for index in range(len(result)):
-            qid = int(result[index].get('QID'))
-            share = int(result[index].get('share'))
-            s_name = result[index].get('service')
-            lang = result[index].get('lang')
-            question = result[index].get('question')
-            answer = result[index].get('answer')
-            
-            # for logs to prettytable
-            table.add_row(["QID", qid, type(qid)])
-            table.add_row(["share", share, type(share)])
-            table.add_row(["s_name", s_name, type(s_name)])
-            table.add_row(["lang", lang, type(lang)])
-            table.add_row(["question", question, type(question)])
-            table.add_row(["answer", answer, type(answer)])
-
-        print("response data\n%s" % table)
+        tableCreate(table,result)
         return result
         #conn.close()
+
+
+def PutData(faq):
+    response = []
+    try:
+        with conn.cursor() as cursor:
+            print("faq is \n%s" % faq)
+            # insert faq
+            query = "insert into faq(QID,lang,question,answer) VALUES (%s,%s,%s,%s)"
+            cursor.execute(query, (faq.QID, faq.lang, faq.question, faq.answer))
+            conn.commit()
+            # insert basic
+            query = "insert into basic(QID,share,service) VALUES(%s,%s,%s)"
+            cursor.execute(query, (faq.QID, faq.share, faq.service))
+            conn.commit()
+    finally:
+        table = prettytable.PrettyTable(["Name", "Value", "type"])
+        tableCreate(faq, table)
+        # ここでreturn を書く
+        # return 
+
+def tableCreate(table, result):
+    print("in table create")
+    for index in range(len(result)):
+        # for logs to prettytable
+        table.add_row(
+                [
+                    "QID",
+                    int(result[index].get('QID')),
+                    type(int(result[index].get('QID')))
+                    ]
+                )
+        table.add_row(
+                [
+                    "share",
+                    int(result[index].get('share')),
+                    type(int(result[index].get('share')))
+                    ]
+                )
+        table.add_row(
+                [
+                    "s_name",
+                    result[index].get('service'),
+                    type(result[index].get('service'))
+                    ]
+                )
+        table.add_row(
+                [
+                    "lang",
+                    result[index].get('lang'),
+                    type(result[index].get('lang'))
+                    ]
+                )
+        table.add_row(
+                [
+                    "question",
+                    result[index].get('question'),
+                    type(result[index].get('question'))
+                    ]
+                )
+        table.add_row(
+                [
+                    "answer",
+                    result[index].get('answer'),
+                    type(result[index].get('answer'))
+                    ]
+                )
+    print("response data\n%s" % table)
+
 
 
 if __name__=='__main__':
