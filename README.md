@@ -38,7 +38,7 @@ DB 操作は基本的に API サーバからのみ行う
 ### tables
 - basic
     - qid  
-      UK  
+      PK  
       FAQのID
     - share  
       公開範囲  
@@ -49,7 +49,7 @@ DB 操作は基本的に API サーバからのみ行う
       サービス名
 - faq
     - qid  
-      UK  
+      PK  
       FAQのID
     - lang  
       言語  
