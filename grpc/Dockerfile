@@ -30,6 +30,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 RUN pip3 install --upgrade pip \
     && pip3 install prettytable \
+    && pip3 install requests \
     && pip3 install pymysql \
     && pip3 install cython \
     && pip3 install grpcio-tools

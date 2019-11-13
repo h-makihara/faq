@@ -28,6 +28,7 @@ RUN pip3 install --upgrade pip \
     && pip3 install prettytable \
     && pip3 install pymysql \
     && pip3 install flask \
+    && pip3 install flask_restful \
     && pip3 install request \
-    && pip3 install jsonify \
-    && pip3 install make_response
+    && pip3 install jsonify 
+    #&& pip3 install make_response
