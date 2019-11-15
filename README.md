@@ -36,43 +36,117 @@ DB 操作は基本的に API サーバからのみ行う
 
 ## FAQ DB
 ### tables
-- Maps  
-    - Tagmap  
-
+#### Maps  
+- Tagmap  
+FAQとタグテーブルを管理  
 | ID | qID | tagID |
 |--- |---  |---    |
+|uint|uint |uint   |
 |1   |1    |1      |
 |2   |1    |2      |
 |3   |1    |3      |
 |4   |2    |2      |
 |5   |2    |4      |  
-    - CategoryMap
+- CategoryMap  
+FAQとカテゴリテーブルを管理  
+| ID | qID | categoryID |
+|--- |---  |---         |
+|uint|uint |uint        |
+|1   |1    |1           |
+|2   |1    |2           |
+|3   |2    |1           |
+|4   |2    |3           |
+|5   |3    |3           |
+
+- ScopeMap  
+FAQと公開範囲を管理  
+管理用に主キーは新たに作らない  
+QIDがそのままユニークに紐づくため  
+QIDから公開範囲を特定・管理するためのテーブル  
+| qID | scopeID |
+|---  |---      |
+|uint |uint     |
+|1    |1        |
+|2    |1        |
+|3    |0        |
+|4    |2        |
+|5    |2        |
+
+- ServiceMap  
+FAQとサービスを管理  
+ScopeMap同様、QIDがそのまま一意にデータを特定するので、管理用の主キーは新たに作らない
+| qID | serviceID |
+|---  |---        |
+|uint |uint       |
+|1    |1          |
+|2    |1          |
+|3    |1          |
+|4    |1          |
+|5    |1          |
+
+#### FAQ
+3つのテーブルのQIDはすべて同期が取れていること  
+QID1の質問や回答は、必ず英語、中国語でも言語が変わっても内容が同じこと  
+QID同期におけるマスタはJPテーブル  
+EN,CNはQIDで検索した場合、作ってなければ存在しない場合がある  
+- JP
+日本語用FAQ管理テーブル  
+| QID | question | answer     | update_at |
+|---  |---       |---         |---        |
+|uint |string    |string      |date       |
+|1    |質問内容  |回答内容    |YYYY/MM/DD |
+
+- EN
+英語用FAQ管理テーブル  
+| QID | question | answer     | update_at |
+|uint |string    |string      |date       |
+|---  |---       |---         |---        |
+|1    |質問内容  |回答内容    |YYYY/MM/DD |
+
+- CN
+中国語用FAQ管理テーブル  
+| QID | question | answer     | update_at |
+|---  |---       |---         |---        |
+|uint |string    |string      |date       |
+|1    |質問内容  |回答内容    |YYYY/MM/DD |
+
+#### Others
+タグとかカテゴリとか  
+- Tags  
+タグ情報  
+| tagID | tag          |
+|---    |---           |
+|uint   |string        |
+|1      |送信          |
+|2      |届かない      |
+|3      |MAILER-DAEMON |
+
+- Categories  
+カテゴリ情報  
+| categoryID | category     |
+|---         |---           |
+|uint        |string        |
+|1           |配送機能      |
+|2           |アドレス管理  |
+|3           |MAILER-DAEMON |
+|4           |フィルタリング|
 
 
-- basic
-    - qid  
-      PK  
-      FAQのID
-    - share  
-      公開範囲  
-      0: 公開不可  
-      1: 社内公開可  
-      2: 社外公開可
-    - service  
-      サービス名
-- faq
-    - qid  
-      PK  
-      FAQのID
-    - lang  
-      言語  
-      ex. JP
-    - question  
-      質問内容  
-      必ず lang で宣言した言語で書く
-    - answer  
-      回答内容  
-      必ず lang で宣言した言語で書く
+- Services  
+サービス情報  
+| serviceID | service |
+|---        |---      |
+|1          |メール   |
+|2          |DNS      |
+
+- Scope  
+公開範囲  
+| scopeID | scope     |
+|---      |---        |
+|1        |公開不可   |
+|2        |社内公開可 |
+|3        |社外公開可 |
+
 
 # 注意
 faq_pb2_grpc.py の faq_pb2 を import する行が、 Python の現在の仕様で  
