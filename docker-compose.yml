@@ -1,21 +1,17 @@
 version: '3.3'
 
 services:
-  faq_front:
+  faq-front:
     build:
       context: ./front
       dockerfile: Dockerfile
       args:
           - http_proxy=$http_proxy
           - https_proxy=$http_proxy
-    container_name: faq_front
-    links:
-      - faq_api:API
+    container_name: faq-front
     networks:
       - web
       - backend
-    links:
-      - faq_grpc:gRPC
     ports:
       - 25252:80
     volumes:
@@ -23,7 +19,7 @@ services:
       - './protos/:/app/protos:ro'
     tty: true
 
-  faq_grpc:
+  faq-grpc:
     build:
       context: ./grpc
       dockerfile: Dockerfile
@@ -32,38 +28,32 @@ services:
           - https_proxy=$http_proxy
     networks:
       - backend
-    container_name: faq_grpc
+    container_name: faq-grpc
     env_file:
       - .env
-    links:
-      - faq_api:API
-      # this link is test state
-      - faq_db:DB
     volumes:
       - './grpc/sources/:/app:rw'
       - './protos/:/app/protos:rw'
     tty: true
 
-  faq_api:
+  faq-api:
     build:
       context: ./api
       dockerfile: Dockerfile
       args:
           - http_proxy=$http_proxy
           - https_proxy=$http_proxy
-    container_name: faq_api
+    container_name: faq-api
     networks:
       - backend
       - dbnw
-    links:
-      - faq_db:DB
     env_file:
       - .env
     volumes:
       - './api/sources/:/app:ro'
     tty: true
 
-  faq_db:
+  faq-db:
     build:
       context: ./db
       dockerfile: Dockerfile
@@ -72,7 +62,7 @@ services:
           - https_proxy=$http_proxy
     networks:
       - dbnw
-    container_name: faq_db
+    container_name: faq-db
     volumes:
       - 'faq_vol:/var/lib/mysql:rw'
     labels:

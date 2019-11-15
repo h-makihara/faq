@@ -36,6 +36,19 @@ DB 操作は基本的に API サーバからのみ行う
 
 ## FAQ DB
 ### tables
+- Maps  
+    - Tagmap 
+| ID | qID | tagID |
+|--- |---  |---    |
+|1   |1    |1      |
+|2   |1    |2      |
+|3   |1    |3      |
+|4   |2    |2      |
+|5   |2    |4      |
+  
+    - CategoryMap
+
+
 - basic
     - qid  
       PK  
