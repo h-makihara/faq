@@ -37,7 +37,8 @@ DB 操作は基本的に API サーバからのみ行う
 ## FAQ DB
 ### tables
 - Maps  
-    - Tagmap 
+    - Tagmap  
+
 | ID | qID | tagID |
 |--- |---  |---    |
 |1   |1    |1      |
