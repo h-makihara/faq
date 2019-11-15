@@ -51,6 +51,7 @@ FAQとタグテーブルを管理
 
 - CategoryMap  
 FAQとカテゴリテーブルを管理  
+
 | ID | qID | categoryID |
 |--- |---  |---         |
 |uint|uint |uint        |
@@ -65,6 +66,7 @@ FAQと公開範囲を管理
 管理用に主キーは新たに作らない  
 QIDがそのままユニークに紐づくため  
 QIDから公開範囲を特定・管理するためのテーブル  
+
 | qID | scopeID |
 |---  |---      |
 |uint |uint     |
@@ -77,6 +79,7 @@ QIDから公開範囲を特定・管理するためのテーブル
 - ServiceMap  
 FAQとサービスを管理  
 ScopeMap同様、QIDがそのまま一意にデータを特定するので、管理用の主キーは新たに作らない
+
 | qID | serviceID |
 |---  |---        |
 |uint |uint       |
@@ -93,6 +96,7 @@ QID同期におけるマスタはJPテーブル
 EN,CNはQIDで検索した場合、作ってなければ存在しない場合がある  
 - JP
 日本語用FAQ管理テーブル  
+
 | QID | question | answer     | update_at |
 |---  |---       |---         |---        |
 |uint |string    |string      |date       |
@@ -100,6 +104,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 
 - EN
 英語用FAQ管理テーブル  
+
 | QID | question | answer     | update_at |
 |uint |string    |string      |date       |
 |---  |---       |---         |---        |
@@ -107,6 +112,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 
 - CN
 中国語用FAQ管理テーブル  
+
 | QID | question | answer     | update_at |
 |---  |---       |---         |---        |
 |uint |string    |string      |date       |
@@ -116,6 +122,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 タグとかカテゴリとか  
 - Tags  
 タグ情報  
+
 | tagID | tag          |
 |---    |---           |
 |uint   |string        |
@@ -125,6 +132,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 
 - Categories  
 カテゴリ情報  
+
 | categoryID | category     |
 |---         |---           |
 |uint        |string        |
@@ -136,6 +144,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 
 - Services  
 サービス情報  
+
 | serviceID | service |
 |---        |---      |
 |1          |メール   |
@@ -143,6 +152,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 
 - Scope  
 公開範囲  
+
 | scopeID | scope     |
 |---      |---        |
 |1        |公開不可   |
