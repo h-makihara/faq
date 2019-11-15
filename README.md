@@ -102,7 +102,7 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 |uint |string    |string      |date       |
 |1    |質問内容  |回答内容    |YYYY/MM/DD |
 
-- EN
+- EN  
 英語用FAQ管理テーブル  
 
 | QID | question | answer     | update_at |
