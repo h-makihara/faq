@@ -39,6 +39,7 @@ DB 操作は基本的に API サーバからのみ行う
 #### Maps  
 - Tagmap  
 FAQとタグテーブルを管理  
+
 | ID | qID | tagID |
 |--- |---  |---    |
 |uint|uint |uint   |
@@ -46,7 +47,8 @@ FAQとタグテーブルを管理
 |2   |1    |2      |
 |3   |1    |3      |
 |4   |2    |2      |
-|5   |2    |4      |  
+|5   |2    |4      |
+
 - CategoryMap  
 FAQとカテゴリテーブルを管理  
 | ID | qID | categoryID |
