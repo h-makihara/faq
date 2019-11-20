@@ -1,15 +1,6 @@
 import pymysql.cursors
 import prettytable
-
-conn = pymysql.connect(
-        host='faq_db',
-        user='root',
-        db='faq',
-        password='faq_pass',
-        charset='utf8mb4',
-        # Dict型で受け取る
-        cursorclass=pymysql.cursors.DictCursor
-        )
+from . import conn
 
 def GetData(word):
     response = []
