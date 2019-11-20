@@ -1,7 +1,7 @@
 import pymysql.cursors
-import prettytable
+#import prettytable
 from . import conn
-
+from . import table
 def GetData(word):
     response = []
     result = []
@@ -17,7 +17,8 @@ def GetData(word):
             #cursor.execute(a_sql, ('%大量送信%',))
             cursor.execute(a_sql, (word,))
             result = cursor.fetchall()
-            print(result)
+            # print debug
+            #print(result)
             for state in result:
                 b_sql = "SELECT share,service FROM basic WHERE QID = %s"
                 cursor.execute(b_sql, state.get('QID'))
@@ -28,8 +29,7 @@ def GetData(word):
                 i += 1
 
     finally:
-        table = prettytable.PrettyTable(["Name", "Value", "type"])
-        tableCreate(table,result)
+        table.tableCreate(result)
         return result
         #conn.close()
 
@@ -48,68 +48,14 @@ def PutData(faq):
             cursor.execute(query, (faq.QID, faq.share, faq.service))
             conn.commit()
     finally:
-        table = prettytable.PrettyTable(["Name", "Value", "type"])
-        tableCreate(faq, table)
+        table.tableCreate(faq)
         # ここでreturn を書く
         # return 
-
-def tableCreate(table, result):
-    print("in table create")
-    for index in range(len(result)):
-        # for logs to prettytable
-        table.add_row(
-                [
-                    "QID",
-                    int(result[index].get('QID')),
-                    type(int(result[index].get('QID')))
-                    ]
-                )
-        table.add_row(
-                [
-                    "share",
-                    int(result[index].get('share')),
-                    type(int(result[index].get('share')))
-                    ]
-                )
-        table.add_row(
-                [
-                    "s_name",
-                    result[index].get('service'),
-                    type(result[index].get('service'))
-                    ]
-                )
-        table.add_row(
-                [
-                    "lang",
-                    result[index].get('lang'),
-                    type(result[index].get('lang'))
-                    ]
-                )
-        table.add_row(
-                [
-                    "question",
-                    result[index].get('question'),
-                    type(result[index].get('question'))
-                    ]
-                )
-        table.add_row(
-                [
-                    "answer",
-                    result[index].get('answer'),
-                    type(result[index].get('answer'))
-                    ]
-                )
-    print("response data\n%s" % table)
-
-
 
 if __name__=='__main__':
     try:
         with conn.cursor() as cursor:
-            sql = "SELECT question,answer FROM faq WHERE answer LIKE %s"
-            #sql = "SELECT question,answer FROM faq WHERE qid = %s"
-            cursor.execute(sql, ('%大量送信%',))
-            result = cursor.fetchall()
-            print(result)
+            # 現在、QIDでのハードコーディングなため1を投げる
+            GetData(1)
     finally:
         conn.close()
