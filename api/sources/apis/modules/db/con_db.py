@@ -58,6 +58,6 @@ if __name__=='__main__':
             # 現在、QIDでのハードコーディングなため1を投げる
             #GetData('QID', 1)
             result = search.fromQID('1', "JP")
-            #table.tableCreate( result )
+            table.tableCreate( result )
     finally:
         conn.close()

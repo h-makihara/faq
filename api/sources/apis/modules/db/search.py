@@ -23,11 +23,15 @@ def fromQID(qid, lang):
                 result[i].update(scope[0])
 
                 # get tag
-                tagID = get.dataFromKey('tagMap', 'QID', result[i].get('QID'))
-                print(tagID)
-                tag = get.dataFromKey('tags', 'tagID', tagID[0].get('tagID'))
-                print(tag)
-                result[i].update(tag[0])
+                tags = []
+                tagIDs = get.dataFromKey('tagMap', 'QID', result[i].get('QID'))
+                print(tagIDs[1].get('tagID'))
+                j = 0
+                for tagID in range(len(tagIDs)):
+                    tagData = get.dataFromKey('tags', 'tagID', tagIDs[j].get('tagID'))
+                    tags.append(tagData[0].get('tag'))
+                    j += 1
+                result[i].update({'tag':tags})
                 
                 # あと欲しいのは service_name category
                 service = get.dataFromKey('services', 'serviceID', result[i].get('serviceID'))
@@ -38,8 +42,7 @@ def fromQID(qid, lang):
                 categoryID = get.dataFromKey('categoryMap', 'QID', result[i].get('QID'))
                 category = get.dataFromKey('categories', 'categoryID', categoryID[0].get('categoryID'))
                 result[i].update(category[0])
-                print(category)
-                print(result[i])
+                #print(result[i])
                 i += 1
     finally:
         # print is debug data

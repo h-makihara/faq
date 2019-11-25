@@ -15,23 +15,23 @@ def tableCreate(result):
                 )
         table.add_row(
                 [
-                    "share",
-                    int(result[index].get('share')),
-                    type(int(result[index].get('share')))
+                    "category",
+                    result[index].get('category'),
+                    type(result[index].get('category'))
                     ]
                 )
         table.add_row(
                 [
-                    "s_name",
+                    "scope",
+                    result[index].get('scope'),
+                    type(result[index].get('scope'))
+                    ]
+                )
+        table.add_row(
+                [
+                    "service_name",
                     result[index].get('service'),
                     type(result[index].get('service'))
-                    ]
-                )
-        table.add_row(
-                [
-                    "lang",
-                    result[index].get('lang'),
-                    type(result[index].get('lang'))
                     ]
                 )
         table.add_row(
@@ -48,4 +48,13 @@ def tableCreate(result):
                     type(result[index].get('answer'))
                     ]
                 )
+        for tagNum in range(len(result[index].get('tag'))):
+            table.add_row(
+                    [
+                        "tag",
+                        result[index].get('tag')[tagNum],
+                        type(result[index].get('tag')[tagNum])
+                        ]
+                    )
+
     print("response data\n%s" % table)
