@@ -1,8 +1,9 @@
 import pymysql.cursors
-#import prettytable
 from . import conn
+from . import search
 from . import table
-def GetData(word):
+
+def GetData(target, word):
     response = []
     result = []
     try:
@@ -33,7 +34,6 @@ def GetData(word):
         return result
         #conn.close()
 
-
 def PutData(faq):
     response = []
     try:
@@ -56,6 +56,8 @@ if __name__=='__main__':
     try:
         with conn.cursor() as cursor:
             # 現在、QIDでのハードコーディングなため1を投げる
-            GetData(1)
+            #GetData('QID', 1)
+            result = search.fromQID('1', "JP")
+            #table.tableCreate( result )
     finally:
         conn.close()

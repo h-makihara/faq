@@ -3,7 +3,7 @@ import pymysql.cursors
 conn = pymysql.connect(
         host='faq-db',
         user='root',
-        db='faq',
+        db='tmp',
         password='faq_pass',
         charset='utf8mb4',
         # Dict型で受け取る

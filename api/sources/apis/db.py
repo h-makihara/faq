@@ -2,7 +2,7 @@ import jsonify
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-from .modules import con_db
+from .modules.db import con_db
 
 todos = {}
 
