@@ -4,35 +4,11 @@ from . import search
 from . import table
 
 def GetData(target, word):
-    response = []
-    result = []
-    try:
-        with conn.cursor() as cursor:
-            # FaqComponent.faq response
-            # a_ is answer sql state
-            # b_ is basic sql state
-            print("search word is %s" % word)
-            a_sql = "SELECT * FROM faq WHERE qid = %s"
-            #sql = "SELECT question,answer FROM faq WHERE answer LIKE %s"
-            #sql = "SELECT question,answer FROM faq WHERE qid = %s"
-            #cursor.execute(a_sql, ('%大量送信%',))
-            cursor.execute(a_sql, (word,))
-            result = cursor.fetchall()
-            # print debug
-            #print(result)
-            for state in result:
-                b_sql = "SELECT share,service FROM basic WHERE QID = %s"
-                cursor.execute(b_sql, state.get('QID'))
-                b_result = cursor.fetchall()
-            i = 0
-            for i in range(len(result)):
-                result[i].update(b_result[i])
-                i += 1
-
-    finally:
-        table.tableCreate(result)
-        return result
-        #conn.close()
+    #response = []
+    #result = []
+    result = search.fromQID('1', 'JP')
+    table.tableCreate( result )
+    return result
 
 def PutData(faq):
     response = []

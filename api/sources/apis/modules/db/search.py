@@ -15,7 +15,6 @@ def fromQID(qid, lang):
             cursor.execute(query)
             result = cursor.fetchall()
             #print(result[0].get('scopeID'))
-            i = 0
             for i in range(len(result)):
                 # get scope
                 scopeID = result[i].get('scopeID')
@@ -25,19 +24,18 @@ def fromQID(qid, lang):
                 # get tag
                 tags = []
                 tagIDs = get.dataFromKey('tagMap', 'QID', result[i].get('QID'))
-                print(tagIDs[1].get('tagID'))
                 j = 0
                 for tagID in range(len(tagIDs)):
                     tagData = get.dataFromKey('tags', 'tagID', tagIDs[j].get('tagID'))
                     tags.append(tagData[0].get('tag'))
                     j += 1
                 result[i].update({'tag':tags})
-                
+
                 # あと欲しいのは service_name category
                 service = get.dataFromKey('services', 'serviceID', result[i].get('serviceID'))
                 result[i].update(service[0])
-                
-                
+
+
                 # あと欲しいのは category
                 categoryID = get.dataFromKey('categoryMap', 'QID', result[i].get('QID'))
                 category = get.dataFromKey('categories', 'categoryID', categoryID[0].get('categoryID'))

@@ -30,7 +30,7 @@ class RouteFaqServicer(FaqGatewayServicer):
                 qid = request.qid,
                 share = request.share,
                 service_name = request.service_name,
-                lang = request.faq.lang,
+                category = request.faq.category,
                 question = request.faq.question,
                 answer = request.faq.answer
                 
@@ -63,12 +63,9 @@ class RouteFaqServicer(FaqGatewayServicer):
         # temp data for response
         tmp = res.add()
         try:
-            # ここでDB接続してデータ取ってくる
-            # ここは将来的にAPIを叩いて取ってくる
-            # faq_list = api.GetData()
+            # apiから情報を取得する
+            # 将来的に 何をキーにして どう取るか を指定できるようにする
             api_answer = api.GetData()
-            # response data debug print
-            print("---- response data ----\n%s----end----\n" % list(api_answer.json()[0].keys()))
             faq_list = api_answer.json()
             # これは参考にした元ソース
             #faq_list = [
@@ -79,17 +76,17 @@ class RouteFaqServicer(FaqGatewayServicer):
             traceback.print_exc()
             faq_list = []
 
-        print("---- faq list ----\n%s\n---- end ----\nfaq_list type is %s" % (faq_list,type(faq_list)))
-
-
         for faq in faq_list:
             tmp.qid = faq.get("QID")
-            tmp.share=faq.get("share")
+            tmp.scope=faq.get("scope")
             tmp.service_name=faq.get("service")
-            tmp.lang=faq.get("lang")
+            tmp.category=faq.get("category")
             tmp.question=faq.get("question")
             tmp.answer=faq.get("answer")
-            print(res)
+            # tag は repeated なので for で回して取得
+            for tag in faq.get("tag"):
+                tmp.tag.append(tag)
+        print('returned response!\n%s\n' % res)
         return FaqShowResponse(faq=res)
 
     def FaqUpdate(self, request, response):

@@ -13,11 +13,12 @@ package faq;
 // FAQ
 message FaqComponent {
     uint32 qid =1;
-    uint32 share = 2;
+    string scope = 2;
     string service_name = 3;
-    string lang = 4;
+    string category = 4;
     string question = 5;
     string answer = 6;
+    repeated string tag = 7;
 }
 
 // サーバーからのレスポンス(共通)

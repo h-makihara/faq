@@ -10,7 +10,7 @@ def get_timestamp():
 
 
 # データを送信する関数(関数名は何でもよい)
-def create_faq(stub, qid, share, service_name, lang, question, answer):
+def create_faq(stub, qid, share, service_name, category, question, answer):
 
     # stubにはFaqGatewayが実装されたgRPCサーバーへのアクセス情報が入っている
     # FaqGatewayにはFaqCreateメソッドが実装されているはず
@@ -18,7 +18,7 @@ def create_faq(stub, qid, share, service_name, lang, question, answer):
         qid=qid,
         share = share,
         service_name = service_name,
-        lang = lang,
+        category = category,
         question = question,
         answer = answer
     ))
@@ -39,15 +39,18 @@ def show_faqs(stub):
             timestamp=get_timestamp()
         )
     )
-
+    
     print("---- Faq Items ----")
     for item in response.faq:
-        print("QID : %s" % item.qid)
-        print("share : %s" % item.share)
+        print("QID          : %s" % item.qid)
+        print("scope        : %s" % item.scope)
         print("service_name : %s" % item.service_name)
-        print("lang : %s" % item.lang)
-        print("question : %s" % item.question)
-        print("answer : %s" % item.answer)
+        print("category     : %s" % item.category)
+        print("question     : %s" % item.question)
+        print("answer       : %s" % item.answer)
+        for tag in item.tag:
+            print("tag          : %s" % tag)
+
     #print(response)
     # レスポンスの中のTODOリストにアクセス
     #for faq in response:
@@ -81,7 +84,7 @@ def getMaxQid():
 if __name__ == '__main__':
 
     # localhost:50051にFaqリクエストを送る準備
-    with grpc.insecure_channel('gRPC:50051') as channel:
+    with grpc.insecure_channel('faq-grpc:50051') as channel:
         stub = FaqGatewayStub(channel)
 
         """
@@ -105,7 +108,7 @@ if __name__ == '__main__':
                 try:
                     share = command[1]
                     service_name = command[2]
-                    lang = command[3]
+                    category = command[3]
                     question = command[4]
                     answer = command[5]
                     #faq_name = command[1]
@@ -115,13 +118,13 @@ if __name__ == '__main__':
                     share = input()
                     print("input service_name: ", end="")
                     service_name = input()
-                    print("input text lang   : ", end="")
-                    lang = input()
+                    print("input text category   : ", end="")
+                    category = input()
                     print("input question    : ", end="")
                     question = input()
                     print("input answer      : ", end="")
                     answer = input()
-                create_faq(stub, qid, share, service_name, lang, question, answer)
+                create_faq(stub, qid, share, service_name, category, question, answer)
                 #create_faq(stub, faq_name)
 
             elif command[0] == "s" or command[0] == "show":
@@ -133,7 +136,7 @@ if __name__ == '__main__':
                     qid = command[1]
                     share = command[2]
                     service_name = command[3]
-                    lang = command[4]
+                    category = command[4]
                     question = command[5]
                     answer = command[6]
 
@@ -144,12 +147,12 @@ if __name__ == '__main__':
                     share = input()
                     print("input service_name: ", end="")
                     service_name = input()
-                    print("input text lang   : ", end="")
-                    lang = input()
+                    print("input text category   : ", end="")
+                    category = input()
                     print("input question    : ", end="")
                     question = input()
                     print("input answer      : ", end="")
                     answer = input()
-                update_faq(stub, qid, share, service_name, lang, question, answer)
+                update_faq(stub, qid, share, service_name, category, question, answer)
             else:
                 print("input an illigal command, try again.")
