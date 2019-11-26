@@ -4,10 +4,15 @@ from . import search
 from . import table
 
 def GetData(target, word):
-    #response = []
+    response = []
     #result = []
-    result = search.fromQID('1', 'JP')
-    table.tableCreate( result )
+    #result = search.fromQID('1', 'JP')
+    result = search.fromTag('MAILER-DAEMON')
+    '''
+    for data in result:
+        print('data is \n\n%s\n\n' % data)
+        table.tableCreate( data )
+    '''
     return result
 
 def PutData(faq):
@@ -33,7 +38,9 @@ if __name__=='__main__':
         with conn.cursor() as cursor:
             # 現在、QIDでのハードコーディングなため1を投げる
             #GetData('QID', 1)
-            result = search.fromQID('1', "JP")
-            table.tableCreate( result )
+            #result = search.fromQID('1', "JP")
+            result = search.fromTag('MAILER-DAEMON')
+            
+            #table.tableCreate( result )
     finally:
         conn.close()

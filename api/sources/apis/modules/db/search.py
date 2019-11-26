@@ -46,11 +46,35 @@ def fromQID(qid, lang):
         # print is debug data
         return result
 
+def fromTag(tag):
+    # tag から tagID を取得
+    # tagID から tagID を持つ QID を tagMap から抽出
+    # QID から Q と A を抽出
+    # 上記をまとめて return する
+    tags = get.dataFromKey('tags', 'tag', tag)
+    print(len(tags))
+    result = []
+    # tagID から QID を引く
+    for tag in tags:
+        tagMaps = get.dataFromKey('tagMap', 'tagID', tag.get('tagID'))
+        print('tagMaps is \n%s\n' % tagMaps)
+    for tagMap in tagMaps:
+        print('tagMap is \n%s\n' % tagMap)
+        toDict = fromQID(tagMap.get('QID'), 'JP')
+        result.append(toDict[0])
+        #result.append(fromQID(tagMap.get('QID'), 'JP'))
+    print('result data is \n %s\n' % result)
+
+    return result
+
 def fromCategory(category):
     # category から categoryID を抽出
     # categoryID から Map テーブルよりQID一覧を抽出
     # QID から Q と A を抽出 (fromQID(qid, lang) function)
     # 上記をまとめて return する
+    category = get.dataFromKey('categories', 'category', category)
+    
+    
     try:
         with conn.cursor() as cursor:
             query = "SELECT category FROM categories WHERE categoryID = %s"
@@ -74,16 +98,4 @@ def fromWord(word, lang):
 
 
 
-def fromTag(tag):
-    # tag から tagID を取得
-    # tagID から tagID を持つ QID を tagMap から抽出
-    # QID から Q と A を抽出
-    # 上記をまとめて return する
-    try:
-        with conn.cursor() as cursor:
-            query = "SELECT  FROM categories WHERE categoryID = %s"
-            cursor.execute(query, (tag,))
-            result = cursor.fetchall()
-    finally:
-        return result
 

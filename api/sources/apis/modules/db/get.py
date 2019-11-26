@@ -5,9 +5,10 @@ from . import conn
 def dataFromKey(dbTable, col, key):
     try:
         with conn.cursor() as cursor:
-            query = f"SELECT * FROM {dbTable} WHERE {col} = {key}"
+            query = f"SELECT * FROM {dbTable} WHERE {col} = \"{key}\""
+            print('db query is \n %s\n' % query)
             cursor.execute(query)
-            result = cursor.fetchall()    
+            result = cursor.fetchall()
     finally:
         return result
 

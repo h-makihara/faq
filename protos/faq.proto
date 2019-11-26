@@ -12,7 +12,7 @@ package faq;
 
 // FAQ
 message FaqComponent {
-    uint32 qid =1;
+    uint32 QID =1;
     string scope = 2;
     string service_name = 3;
     string category = 4;

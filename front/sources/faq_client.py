@@ -1,6 +1,7 @@
-from protos.faq_pb2 import *
-from protos.faq_pb2_grpc import FaqGatewayStub
+from .protos.faq_pb2 import *
+from .protos.faq_pb2_grpc import FaqGatewayStub
 import grpc
+from .modules import table
 
 from datetime import datetime
 
@@ -41,8 +42,10 @@ def show_faqs(stub):
     )
     
     print("---- Faq Items ----")
+    print(response.faq)
     for item in response.faq:
-        print("QID          : %s" % item.qid)
+        print(type(item))
+        print("QID          : %s" % item.QID)
         print("scope        : %s" % item.scope)
         print("service_name : %s" % item.service_name)
         print("category     : %s" % item.category)
