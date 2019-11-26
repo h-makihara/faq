@@ -11,6 +11,7 @@ RUN mkdir -p /etc/mysql/conf.d
 COPY ./my.cnf /etc/mysql/my.cnf
 COPY ./mysql.cnf /etc/mysql/conf.d/mysql.cnf
 COPY ./create_table.sql /var/tmp/create.sql
+COPY ./new_table.sql /var/tmp/new.sql
 
 #RUN egrep "buffer|recover" /etc/mysql/conf.d/mysql.cnf
 
