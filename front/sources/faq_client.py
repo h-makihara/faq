@@ -40,19 +40,10 @@ def show_faqs(stub):
             timestamp=get_timestamp()
         )
     )
-    
-    print("---- Faq Items ----")
-    print(response.faq)
+    i = 1
     for item in response.faq:
-        print(type(item))
-        print("QID          : %s" % item.QID)
-        print("scope        : %s" % item.scope)
-        print("service_name : %s" % item.service_name)
-        print("category     : %s" % item.category)
-        print("question     : %s" % item.question)
-        print("answer       : %s" % item.answer)
-        for tag in item.tag:
-            print("tag          : %s" % tag)
+        table.tableCreate(item, i)
+        i += 1
 
     #print(response)
     # レスポンスの中のTODOリストにアクセス

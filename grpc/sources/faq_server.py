@@ -67,6 +67,7 @@ class RouteFaqServicer(FaqGatewayServicer):
             # apiから情報を取得する
             # 将来的に 何をキーにして どう取るか を指定できるようにする
             api_answer = api.GetData()
+            print(api_answer)
             faq_list = api_answer.json()
             #print(faq_list)
             # これは参考にした元ソース
@@ -77,29 +78,6 @@ class RouteFaqServicer(FaqGatewayServicer):
             import traceback
             traceback.print_exc()
             faq_list = []
-        '''
-        for faq in faq_list:
-            stream.append({'QID' : faq.get("QID"})
-            stream.append({'scope' : faq.get("scope"})
-            stream.append({'service' : faq.get("service"})
-            stream.append({'category' : faq.get("category"})
-            stream.append({'question' : faq.get("question"})
-            stream.append({'answer' : faq.get("answer"})
-            for tag in faq.get("tag"):
-                stream.tag.append(tag)
-            print(stream)
-
-            print((faq))
-            tmp.qid = faq.get("QID")
-            tmp.scope=faq.get("scope")
-            tmp.service_name=faq.get("service")
-            tmp.category=faq.get("category")
-            tmp.question=faq.get("question")
-            tmp.answer=faq.get("answer")
-            # tag は repeated なので for で回して取得
-            for tag in faq.get("tag"):
-                tmp.tag.append(tag)
-        '''
         # faq_list から不要な情報を削ぐ
         for i in range(len(faq_list)):
             del faq_list[i]['scopeID'], faq_list[i]['serviceID'], faq_list[i]['categoryID']

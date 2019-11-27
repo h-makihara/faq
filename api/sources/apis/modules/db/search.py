@@ -63,7 +63,6 @@ def fromTag(tag):
         toDict = fromQID(tagMap.get('QID'), 'JP')
         result.append(toDict[0])
         #result.append(fromQID(tagMap.get('QID'), 'JP'))
-    print('result data is \n %s\n' % result)
 
     return result
 

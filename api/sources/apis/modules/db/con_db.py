@@ -8,11 +8,7 @@ def GetData(target, word):
     #result = []
     #result = search.fromQID('1', 'JP')
     result = search.fromTag('MAILER-DAEMON')
-    '''
-    for data in result:
-        print('data is \n\n%s\n\n' % data)
-        table.tableCreate( data )
-    '''
+    table.tableCreate(result)
     return result
 
 def PutData(faq):
