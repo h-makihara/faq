@@ -58,6 +58,7 @@ def fromTag(tag):
     for tag in tags:
         tagMaps = get.dataFromKey('tagMap', 'tagID', tag.get('tagID'))
         print('tagMaps is \n%s\n' % tagMaps)
+    # QID から残りの情報を取るのは fromQID でできるのでそっちに投げる
     for tagMap in tagMaps:
         print('tagMap is \n%s\n' % tagMap)
         toDict = fromQID(tagMap.get('QID'), 'JP')

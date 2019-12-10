@@ -27,6 +27,9 @@ RUN apk add --no-cache --virtual .build-deps \
                                  python3-dev \
                                  protobuf
 
+RUN apk add --no-cache --virtual .node \
+                                 nodejs \
+                                 npm
 RUN pip3 install --upgrade pip \
     && pip3 install pymysql \
     && pip3 install cython \
