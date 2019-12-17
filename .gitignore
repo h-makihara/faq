@@ -107,4 +107,7 @@ venv.bak/
 *_pb2*.py
 
 # frontend source
-*/frontend/*
+frontend/
+
+# temporary data
+tmp/
