@@ -27,9 +27,20 @@ RUN apk add --no-cache --virtual .build-deps \
                                  python3-dev \
                                  protobuf
 
+
+WORKDIR /app/front/
 RUN apk add --no-cache --virtual .node \
                                  nodejs \
                                  npm
+
+RUN npm install webpack \
+                webpack-dev-server \
+                extract-text-webpack-plugin \
+                chalk \
+                shelljs \
+                ora \
+                @angular/cli
+
 RUN pip3 install --upgrade pip \
     && pip3 install pymysql \
     && pip3 install cython \

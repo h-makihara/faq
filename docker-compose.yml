@@ -14,6 +14,7 @@ services:
       - backend
     ports:
       - 25252:80
+      - 8282:80
     volumes:
       - './front/sources/:/app:rw'
       - './protos/:/app/protos:ro'
