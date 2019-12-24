@@ -13,8 +13,8 @@ services:
       - web
       - backend
     ports:
-      - 25252:80
-      - 8282:80
+      - 25252:8080
+      - 8282:8080
     volumes:
       - './front/sources/:/app:rw'
       - './protos/:/app/protos:ro'
@@ -29,6 +29,7 @@ services:
           - https_proxy=$http_proxy
     networks:
       - backend
+      - dbnw
     container_name: faq-grpc
     env_file:
       - .env

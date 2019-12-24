@@ -5,7 +5,11 @@ from concurrent import futures
 from datetime import datetime
 import time
 import grpc
+
+# from modules dir
 from modules import api
+from modules.db import con_db
+
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -66,9 +70,15 @@ class RouteFaqServicer(FaqGatewayServicer):
         try:
             # apiから情報を取得する
             # 将来的に 何をキーにして どう取るか を指定できるようにする
+            # gRPC API 同居型
+            faq_list = con_db.GetData('tag', 'MAILER-DAEMON')
+
+            # api 分離型の場合
+            '''
             api_answer = api.GetData()
             print(api_answer)
             faq_list = api_answer.json()
+            '''
             #print(faq_list)
             # これは参考にした元ソース
             #faq_list = [

@@ -13,34 +13,52 @@ ARG https_proxy=$https_proxy
 RUN apk update \
     && apk upgrade \
     && apk add -U --no-cache perl openssl \
-    && apk add --no-cache --virtual git \
-                                    curl \
-                                    bash \
+    && apk add --no-cache --virtual .base\
+                                    git \
                                     mysql-client \
                                     python3 \
                                     make \
                                     linux-headers \
                                     build-base
 
+RUN apk add --no-cache --virtual .on-build \
+                                    curl \
+                                    bash 
+
 RUN apk add --no-cache --virtual .build-deps \
-                                 gcc musl-dev \
+                                 gcc \
+                                 musl-dev \
                                  python3-dev \
-                                 protobuf
+                                 protobuf \
+                                 yarn
 
-
-WORKDIR /app/front/
 RUN apk add --no-cache --virtual .node \
                                  nodejs \
                                  npm
 
-RUN npm install webpack \
-                webpack-dev-server \
-                extract-text-webpack-plugin \
-                chalk \
-                shelljs \
-                ora \
-                @angular/cli
+RUN npm -g config set proxy $http_proxy
+RUN npm -g config set https-proxy $https_proxy
+RUN npm config list
 
+# Vue.js
+RUN npm install -g @vue/cli
+# gRPC-WEB
+RUN yarn add google-protobuf \
+             @types/google-protobuf \
+             grpc-web
+
+# angular
+#RUN npm install -g webpack \
+#                   webpack-dev-server \
+#                   webpack-contrib/mini-css-extract-plugin \
+#                   chalk \
+#                   shelljs \
+#                   ora \
+#                   @angular/cli
+#WORKDIR /app
+#RUN ng new angular-app --routing --style scss
+
+# test python client
 RUN pip3 install --upgrade pip \
     && pip3 install pymysql \
     && pip3 install cython \
