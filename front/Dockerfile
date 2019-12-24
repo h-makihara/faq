@@ -60,6 +60,7 @@ RUN yarn add google-protobuf \
 
 # test python client
 RUN pip3 install --upgrade pip \
+    && pip3 install prettytable \
     && pip3 install pymysql \
     && pip3 install cython \
     && pip3 install grpcio-tools

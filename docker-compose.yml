@@ -38,23 +38,6 @@ services:
       - './protos/:/app/protos:rw'
     tty: true
 
-  faq-api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-      args:
-          - http_proxy=$http_proxy
-          - https_proxy=$http_proxy
-    container_name: faq-api
-    networks:
-      - backend
-      - dbnw
-    env_file:
-      - .env
-    volumes:
-      - './api/sources/:/app:ro'
-    tty: true
-
   faq-db:
     build:
       context: ./db
