@@ -11,14 +11,29 @@ services:
     container_name: faq-front
     networks:
       - web
-      - backend
     ports:
       - 25252:8080
-      - 8282:8080
     volumes:
       - './front/sources/:/app:rw'
       - './protos/:/app/protos:ro'
+      - './protos:/app/vuejs/src/protos:ro'
     tty: true
+
+  faq-proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+      args:
+        - http_proxy=$http_proxy
+        - https_proxy=$http_proxy
+    container_name: faq-proxy
+    networks:
+      - web
+      - backend
+    ports:
+      - 8001:8001
+    links:
+      - faq-grpc
 
   faq-grpc:
     build:
@@ -27,10 +42,13 @@ services:
       args:
           - http_proxy=$http_proxy
           - https_proxy=$http_proxy
+    container_name: faq-grpc
     networks:
+      - web
       - backend
       - dbnw
-    container_name: faq-grpc
+    ports:
+      - 50051:50051
     env_file:
       - .env
     volumes:

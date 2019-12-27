@@ -7,6 +7,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
+/* eslint-disable */
 
 const grpc = {};
 grpc.web = require('grpc-web');
@@ -69,86 +70,6 @@ proto.faq.FaqGatewayPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.faq.FaqCreateRequest,
- *   !proto.faq.FaqCreateResponse>}
- */
-const methodDescriptor_FaqGateway_FaqCreate = new grpc.web.MethodDescriptor(
-  '/faq.FaqGateway/FaqCreate',
-  grpc.web.MethodType.UNARY,
-  proto.faq.FaqCreateRequest,
-  proto.faq.FaqCreateResponse,
-  /**
-   * @param {!proto.faq.FaqCreateRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.faq.FaqCreateResponse.deserializeBinary
-);
-
-
-/**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.faq.FaqCreateRequest,
- *   !proto.faq.FaqCreateResponse>}
- */
-const methodInfo_FaqGateway_FaqCreate = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.faq.FaqCreateResponse,
-  /**
-   * @param {!proto.faq.FaqCreateRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.faq.FaqCreateResponse.deserializeBinary
-);
-
-
-/**
- * @param {!proto.faq.FaqCreateRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @param {function(?grpc.web.Error, ?proto.faq.FaqCreateResponse)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.faq.FaqCreateResponse>|undefined}
- *     The XHR Node Readable Stream
- */
-proto.faq.FaqGatewayClient.prototype.faqCreate =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/faq.FaqGateway/FaqCreate',
-      request,
-      metadata || {},
-      methodDescriptor_FaqGateway_FaqCreate,
-      callback);
-};
-
-
-/**
- * @param {!proto.faq.FaqCreateRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @return {!Promise<!proto.faq.FaqCreateResponse>}
- *     A native promise that resolves to the response
- */
-proto.faq.FaqGatewayPromiseClient.prototype.faqCreate =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/faq.FaqGateway/FaqCreate',
-      request,
-      metadata || {},
-      methodDescriptor_FaqGateway_FaqCreate);
-};
-
-
-/**
- * @const
- * @type {!grpc.web.MethodDescriptor<
  *   !proto.faq.FaqShowRequest,
  *   !proto.faq.FaqShowResponse>}
  */
@@ -174,6 +95,7 @@ const methodDescriptor_FaqGateway_FaqShow = new grpc.web.MethodDescriptor(
  *   !proto.faq.FaqShowRequest,
  *   !proto.faq.FaqShowResponse>}
  */
+
 const methodInfo_FaqGateway_FaqShow = new grpc.web.AbstractClientBase.MethodInfo(
   proto.faq.FaqShowResponse,
   /**
@@ -185,7 +107,6 @@ const methodInfo_FaqGateway_FaqShow = new grpc.web.AbstractClientBase.MethodInfo
   },
   proto.faq.FaqShowResponse.deserializeBinary
 );
-
 
 /**
  * @param {!proto.faq.FaqShowRequest} request The
@@ -223,86 +144,6 @@ proto.faq.FaqGatewayPromiseClient.prototype.faqShow =
       request,
       metadata || {},
       methodDescriptor_FaqGateway_FaqShow);
-};
-
-
-/**
- * @const
- * @type {!grpc.web.MethodDescriptor<
- *   !proto.faq.FaqUpdateRequest,
- *   !proto.faq.FaqUpdateResponse>}
- */
-const methodDescriptor_FaqGateway_FaqUpdate = new grpc.web.MethodDescriptor(
-  '/faq.FaqGateway/FaqUpdate',
-  grpc.web.MethodType.UNARY,
-  proto.faq.FaqUpdateRequest,
-  proto.faq.FaqUpdateResponse,
-  /**
-   * @param {!proto.faq.FaqUpdateRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.faq.FaqUpdateResponse.deserializeBinary
-);
-
-
-/**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.faq.FaqUpdateRequest,
- *   !proto.faq.FaqUpdateResponse>}
- */
-const methodInfo_FaqGateway_FaqUpdate = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.faq.FaqUpdateResponse,
-  /**
-   * @param {!proto.faq.FaqUpdateRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.faq.FaqUpdateResponse.deserializeBinary
-);
-
-
-/**
- * @param {!proto.faq.FaqUpdateRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @param {function(?grpc.web.Error, ?proto.faq.FaqUpdateResponse)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.faq.FaqUpdateResponse>|undefined}
- *     The XHR Node Readable Stream
- */
-proto.faq.FaqGatewayClient.prototype.faqUpdate =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/faq.FaqGateway/FaqUpdate',
-      request,
-      metadata || {},
-      methodDescriptor_FaqGateway_FaqUpdate,
-      callback);
-};
-
-
-/**
- * @param {!proto.faq.FaqUpdateRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @return {!Promise<!proto.faq.FaqUpdateResponse>}
- *     A native promise that resolves to the response
- */
-proto.faq.FaqGatewayPromiseClient.prototype.faqUpdate =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/faq.FaqGateway/FaqUpdate',
-      request,
-      metadata || {},
-      methodDescriptor_FaqGateway_FaqUpdate);
 };
 
 

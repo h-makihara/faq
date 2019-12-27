@@ -66,54 +66,6 @@ export namespace ServerResponseComponent {
   }
 }
 
-export class FaqCreateRequest extends jspb.Message {
-  getFaqdataList(): Array<FaqComponent>;
-  setFaqdataList(value: Array<FaqComponent>): void;
-  clearFaqdataList(): void;
-  addFaqdata(value?: FaqComponent, index?: number): FaqComponent;
-
-  getTimestamp(): string;
-  setTimestamp(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): FaqCreateRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: FaqCreateRequest): FaqCreateRequest.AsObject;
-  static serializeBinaryToWriter(message: FaqCreateRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): FaqCreateRequest;
-  static deserializeBinaryFromReader(message: FaqCreateRequest, reader: jspb.BinaryReader): FaqCreateRequest;
-}
-
-export namespace FaqCreateRequest {
-  export type AsObject = {
-    faqdataList: Array<FaqComponent.AsObject>,
-    timestamp: string,
-  }
-}
-
-export class FaqCreateResponse extends jspb.Message {
-  getResponse(): ServerResponseComponent | undefined;
-  setResponse(value?: ServerResponseComponent): void;
-  hasResponse(): boolean;
-  clearResponse(): void;
-
-  getTimestamp(): string;
-  setTimestamp(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): FaqCreateResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: FaqCreateResponse): FaqCreateResponse.AsObject;
-  static serializeBinaryToWriter(message: FaqCreateResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): FaqCreateResponse;
-  static deserializeBinaryFromReader(message: FaqCreateResponse, reader: jspb.BinaryReader): FaqCreateResponse;
-}
-
-export namespace FaqCreateResponse {
-  export type AsObject = {
-    response?: ServerResponseComponent.AsObject,
-    timestamp: string,
-  }
-}
-
 export class FaqShowRequest extends jspb.Message {
   getTimestamp(): string;
   setTimestamp(value: string): void;
@@ -149,54 +101,6 @@ export class FaqShowResponse extends jspb.Message {
 export namespace FaqShowResponse {
   export type AsObject = {
     faqList: Array<FaqComponent.AsObject>,
-  }
-}
-
-export class FaqUpdateRequest extends jspb.Message {
-  getFaq(): FaqComponent | undefined;
-  setFaq(value?: FaqComponent): void;
-  hasFaq(): boolean;
-  clearFaq(): void;
-
-  getTimestamp(): string;
-  setTimestamp(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): FaqUpdateRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: FaqUpdateRequest): FaqUpdateRequest.AsObject;
-  static serializeBinaryToWriter(message: FaqUpdateRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): FaqUpdateRequest;
-  static deserializeBinaryFromReader(message: FaqUpdateRequest, reader: jspb.BinaryReader): FaqUpdateRequest;
-}
-
-export namespace FaqUpdateRequest {
-  export type AsObject = {
-    faq?: FaqComponent.AsObject,
-    timestamp: string,
-  }
-}
-
-export class FaqUpdateResponse extends jspb.Message {
-  getResponse(): ServerResponseComponent | undefined;
-  setResponse(value?: ServerResponseComponent): void;
-  hasResponse(): boolean;
-  clearResponse(): void;
-
-  getTimestamp(): string;
-  setTimestamp(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): FaqUpdateResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: FaqUpdateResponse): FaqUpdateResponse.AsObject;
-  static serializeBinaryToWriter(message: FaqUpdateResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): FaqUpdateResponse;
-  static deserializeBinaryFromReader(message: FaqUpdateResponse, reader: jspb.BinaryReader): FaqUpdateResponse;
-}
-
-export namespace FaqUpdateResponse {
-  export type AsObject = {
-    response?: ServerResponseComponent.AsObject,
-    timestamp: string,
   }
 }
 
