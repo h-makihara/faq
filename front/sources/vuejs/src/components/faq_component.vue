@@ -5,8 +5,6 @@
       <a class="navbar-brand" href="#!">{{ faq_msg }}</a>
     </nav>
 
-    <button v-on:click="button">ボタン</button>
-    <h2 v-show="showText">{{ faq_text }}</h2>
   </div>
 </template>
 

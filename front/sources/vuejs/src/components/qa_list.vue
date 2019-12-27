@@ -23,13 +23,11 @@
         </tr>
         <tr>
           <td>
-            <router-link to="/">
-              Question
+            <router-link to="/" id="grpcQtest">
             </router-link>
           </td>
           <td>
-            <router-link to="/">
-              service
+            <router-link to="/" id="grpcStest">
             </router-link>
           </td>
         </tr>
@@ -37,13 +35,14 @@
     </table>
 
 
-
-
-
   </div>
 </template>
 
 <script>
+/* eslint-disable */
+import { FaqShowRequest } from "../protos/faq_pb"
+import { FaqGatewayClient } from '../protos/faq_grpc_web_pb'
+/* eslint-enable */
 
 export default {
   name: 'qaListShow',
@@ -54,7 +53,29 @@ export default {
       service : 'Mail',
       tags    : 'Mail Deliver',
     }
+  },
+  created: function () {
+    this.client = new FaqGatewayClient('http://tp-iij1940.ds.iiji.jp:8001', null, null)
+    let request = new FaqShowRequest()
+    request.setTimestamp('2019/12/27 10:00:00')
+    console.log(this.client)
+    this.client.faqShow(request, {}, (err, response) => {
+      console.log(response)
+      //this.grpcQtest = response.toObject()
+    })
+//  },
+//  methods: {
+//    showFAQ: function() {
+//      let request = new FaqShowRequest()
+//      request.setTimestamp('2019/12/27 10:00:00')
+//      console.log(request)
+//      this.client.faqShow(request, {}, (err, response) => {
+//        this.faq = response.toObject()
+//        console.log(this.faq)
+//      })
+//    }
   }
+
 }
 </script>
 

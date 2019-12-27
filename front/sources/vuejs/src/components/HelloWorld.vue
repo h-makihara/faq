@@ -9,6 +9,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <md-button class="md-raised md-primary">Sample</md-button>
   </div>
 </template>
 
