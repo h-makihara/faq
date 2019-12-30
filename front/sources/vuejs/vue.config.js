@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-        public: "tp-iij1940.ds.iiji.jp",
+        public: "yourproxy",
         port: 8080,
         disableHostCheck: true,
         watchOptions: {
