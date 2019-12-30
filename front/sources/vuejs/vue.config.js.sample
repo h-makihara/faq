@@ -1,0 +1,10 @@
+module.exports = {
+    devServer: {
+        public: "InputYourHostname",
+        port: 8080,
+        disableHostCheck: true,
+        watchOptions: {
+            poll: true
+        }
+    },
+};
