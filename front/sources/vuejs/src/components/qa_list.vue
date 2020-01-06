@@ -42,6 +42,7 @@
 /* eslint-disable */
 import { FaqShowRequest } from "../protos/faq_pb"
 import { FaqGatewayClient } from '../protos/faq_grpc_web_pb'
+import config from "@/config";
 /* eslint-enable */
 
 export default {
@@ -55,10 +56,10 @@ export default {
     }
   },
   created: function () {
-    this.client = new FaqGatewayClient('http://tp-iij1940.ds.iiji.jp:8001', null, null)
+    this.client = new FaqGatewayClient(config.faqServiceEndPoint, null, null)
     let request = new FaqShowRequest()
     request.setTimestamp('2019/12/27 10:00:00')
-    console.log(this.client)
+    console.log(this.client.faqShow())
     this.client.faqShow(request, {}, (err, response) => {
       console.log(response)
       //this.grpcQtest = response.toObject()
