@@ -55,26 +55,16 @@ export default {
       tags    : 'Mail Deliver',
     }
   },
-  created: function () {
+  mounted: function () {
     this.client = new FaqGatewayClient(config.faqServiceEndPoint, null, null)
     let request = new FaqShowRequest()
     request.setTimestamp('2019/12/27 10:00:00')
-    console.log(this.client.faqShow())
+    console.log(this.$el)
+    console.log(this.client)
     this.client.faqShow(request, {}, (err, response) => {
       console.log(response)
       //this.grpcQtest = response.toObject()
     })
-//  },
-//  methods: {
-//    showFAQ: function() {
-//      let request = new FaqShowRequest()
-//      request.setTimestamp('2019/12/27 10:00:00')
-//      console.log(request)
-//      this.client.faqShow(request, {}, (err, response) => {
-//        this.faq = response.toObject()
-//        console.log(this.faq)
-//      })
-//    }
   }
 
 }
