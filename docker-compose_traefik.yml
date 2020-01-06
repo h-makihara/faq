@@ -6,10 +6,13 @@ services:
       - web
     labels:
       - traefik.enable=true
-      - traefik.port=80
+      - traefik.port=8080
       - traefik.backend=faq-front
       - traefik.passHostHeader=true
-      - traefik.frontend.rule=PathPrefix:/faq/
+      - "traefik.frontend.rule=PathPrefixStrip:/faq"
+      - "traefik.frontend.redirect.regex=^(.*)/faq$$"
+      - "traefik.frontend.redirect.replacement=$$1/faq/"
+      - "traefik.frontend.rule=PathPrefix:/portainer;ReplacePathRegex: ^/faq/(.*) /$$1"
       # wordpress のTraefik上のバックエンド名を記載
       - "traefik.docker.network=web"
       - "traefik.frontend.entryPoints=http"

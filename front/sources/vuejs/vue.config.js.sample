@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-        public: "tp-iij1940.ds.iiji.jp",
+        public: "InputYourHostname",
         port: 8080,
         disableHostCheck: true,
         watchOptions: {
