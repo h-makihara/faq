@@ -111,3 +111,6 @@ frontend/
 
 # temporary data
 tmp/
+
+# envoy
+envoy.yaml

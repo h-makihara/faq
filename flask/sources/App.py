@@ -33,7 +33,8 @@ def faqList():
                             "tags":item.tag
                         }
                     )
-
+            # debug
+            '''
             print(item.QID)
             print(item.category)
             print(item.scope)
@@ -43,6 +44,7 @@ def faqList():
             for tagNum in range(len(item.tag)):
                 print(item.tag[tagNum])
         print("faqList is \n\n%s" % faqList)
+        '''
     return json.dumps(faqList, default=list)
 
 if __name__ == "__main__":
