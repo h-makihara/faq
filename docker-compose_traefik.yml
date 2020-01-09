@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-  faq-front:
+  faq-vue:
     networks:
       - web
     labels:
       - traefik.enable=true
       - traefik.port=8080
-      - traefik.backend=faq-front
+      - traefik.backend=faq-vue
       - traefik.passHostHeader=true
       - "traefik.frontend.rule=PathPrefixStrip:/faq"
       - "traefik.frontend.redirect.regex=^(.*)/faq$$"

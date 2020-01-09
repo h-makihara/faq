@@ -9,7 +9,7 @@ def GetData(target, word):
     #result = search.fromQID('1', 'JP')
     result = search.fromTag('MAILER-DAEMON')
     table.tableCreate(result)
-    conn.close()
+    #conn.close()
     return result
 
 def PutData(faq):

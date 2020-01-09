@@ -21,7 +21,7 @@ message ServerResponseComponent {
 }
 
 message FaqShowRequest {
-    string timestamp = 1;
+    //string timestamp = 1;
 }
 
 // repeated SOMETHING = SOMETHING[]

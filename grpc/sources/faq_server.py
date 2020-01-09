@@ -60,7 +60,7 @@ class RouteFaqServicer(FaqGatewayServicer):
         )
 
     def FaqShow(self, request, response):
-        print("Faq Show Called : %s" % request.timestamp)
+        #print("Faq Show Called : %s" % request.timestamp)
         faqs = []
         # response data
         res = FaqShowResponse().faq
