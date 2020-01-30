@@ -1,9 +1,8 @@
 import pymysql.cursors
-from . import conn
 from . import get
 
 # 得た情報からどのように情報を得るかを割り振る機能群
-def fromQID(qid, lang):
+def fromQID(qid, lang, conn):
     # QID からQとAをまず抽出
     # QID からカテゴリを抽出
     # QID からタグを抽出
@@ -18,27 +17,27 @@ def fromQID(qid, lang):
             for i in range(len(result)):
                 # get scope
                 scopeID = result[i].get('scopeID')
-                scope = get.dataFromKey('scope', 'scopeID', scopeID)
+                scope = get.dataFromKey('scope', 'scopeID', scopeID, conn)
                 result[i].update(scope[0])
 
                 # get tag
                 tags = []
-                tagIDs = get.dataFromKey('tagMap', 'QID', result[i].get('QID'))
+                tagIDs = get.dataFromKey('tagMap', 'QID', result[i].get('QID'), conn)
                 j = 0
                 for tagID in range(len(tagIDs)):
-                    tagData = get.dataFromKey('tags', 'tagID', tagIDs[j].get('tagID'))
+                    tagData = get.dataFromKey('tags', 'tagID', tagIDs[j].get('tagID'), conn)
                     tags.append(tagData[0].get('tag'))
                     j += 1
                 result[i].update({'tag':tags})
 
                 # あと欲しいのは service_name category
-                service = get.dataFromKey('services', 'serviceID', result[i].get('serviceID'))
+                service = get.dataFromKey('services', 'serviceID', result[i].get('serviceID'), conn)
                 result[i].update(service[0])
 
 
                 # あと欲しいのは category
-                categoryID = get.dataFromKey('categoryMap', 'QID', result[i].get('QID'))
-                category = get.dataFromKey('categories', 'categoryID', categoryID[0].get('categoryID'))
+                categoryID = get.dataFromKey('categoryMap', 'QID', result[i].get('QID'), conn)
+                category = get.dataFromKey('categories', 'categoryID', categoryID[0].get('categoryID'), conn)
                 result[i].update(category[0])
                 #print(result[i])
                 i += 1
@@ -46,35 +45,33 @@ def fromQID(qid, lang):
         # print is debug data
         return result
 
-def fromTag(tag):
+def fromTag(tag, conn):
     # tag から tagID を取得
     # tagID から tagID を持つ QID を tagMap から抽出
     # QID から Q と A を抽出
     # 上記をまとめて return する
-    tags = get.dataFromKey('tags', 'tag', tag)
+    tags = get.dataFromKey('tags', 'tag', tag, conn)
     print(len(tags))
     result = []
     # tagID から QID を引く
     for tag in tags:
-        tagMaps = get.dataFromKey('tagMap', 'tagID', tag.get('tagID'))
+        tagMaps = get.dataFromKey('tagMap', 'tagID', tag.get('tagID'), conn)
         print('tagMaps is \n%s\n' % tagMaps)
     # QID から残りの情報を取るのは fromQID でできるのでそっちに投げる
     for tagMap in tagMaps:
         print('tagMap is \n%s\n' % tagMap)
-        toDict = fromQID(tagMap.get('QID'), 'JP')
+        toDict = fromQID(tagMap.get('QID'), 'JP', conn)
         result.append(toDict[0])
         #result.append(fromQID(tagMap.get('QID'), 'JP'))
 
     return result
 
-def fromCategory(category):
+def fromCategory(category, conn):
     # category から categoryID を抽出
     # categoryID から Map テーブルよりQID一覧を抽出
     # QID から Q と A を抽出 (fromQID(qid, lang) function)
     # 上記をまとめて return する
-    category = get.dataFromKey('categories', 'category', category)
-    
-    
+    category = get.dataFromKey('categories', 'category', category, conn)
     try:
         with conn.cursor() as cursor:
             query = "SELECT category FROM categories WHERE categoryID = %s"
@@ -83,7 +80,7 @@ def fromCategory(category):
     finally:
         return result
 
-def fromWord(word, lang):
+def fromWord(word, lang, conn):
     # word から QID 一覧を取得
     # QID から tagMap, categoryMap を使ってそれぞれのID取得
     # tagID, categoryID から tag, category を抽出
@@ -95,7 +92,4 @@ def fromWord(word, lang):
             result = cursor.fetchall()
     finally:
         return result
-
-
-
 

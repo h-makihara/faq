@@ -12,7 +12,7 @@ app = FlaskAPI(__name__)
 def example():
     return {"hello" : "world"}
 
-@app.route('/faq')
+@app.route('/faq/list')
 def faqList():
     faqList = []
     with grpc.insecure_channel('faq-grpc:50051') as channel:

@@ -1,13 +1,21 @@
 import pymysql.cursors
-from . import conn
 from . import search
 from . import table
 
 def GetData(target, word):
+    conn = pymysql.connect(
+            host='faq-db',
+            user='root',
+            db='tmp',
+            password='faq_pass',
+            charset='utf8mb4',
+            # Dict型で受け取る
+            cursorclass=pymysql.cursors.DictCursor
+            )
     response = []
     #result = []
     #result = search.fromQID('1', 'JP')
-    result = search.fromTag('MAILER-DAEMON')
+    result = search.fromTag('MAILER-DAEMON', conn)
     table.tableCreate(result)
     #conn.close()
     return result
