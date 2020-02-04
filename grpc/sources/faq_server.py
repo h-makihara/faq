@@ -37,10 +37,6 @@ class RouteFaqServicer(FaqGatewayServicer):
                 category = request.faq.category,
                 question = request.faq.question,
                 answer = request.faq.answer
-                
-                # 参考にしたソースのメモなので残す
-                # todo_name=request.todo_name,
-                # is_done=False    # 作成時はTODO完了していないためFalse
             )
             is_success = True
             message = None
@@ -65,7 +61,6 @@ class RouteFaqServicer(FaqGatewayServicer):
         # response data
         res = FaqShowResponse().faq
         # temp data for response
-        stream = []
         tmp = res.add()
         try:
             # apiから情報を取得する
@@ -79,11 +74,6 @@ class RouteFaqServicer(FaqGatewayServicer):
             print(api_answer)
             faq_list = api_answer.json()
             '''
-            #print(faq_list)
-            # これは参考にした元ソース
-            #faq_list = [
-            #    faq for faq in self.faqs.values()
-            #]
         except:
             import traceback
             traceback.print_exc()
@@ -97,6 +87,18 @@ class RouteFaqServicer(FaqGatewayServicer):
         #print('returned response!\n%s\n' % res)
         return FaqShowResponse(faq=res)
         #return FaqShowResponse(faq=res)
+
+    def showQA(self, request, response):
+        res = qaShowResponse().faq
+        tmp = res.add()
+        qa = []
+        try:
+            qa = con_db.GetFromQID(qid)
+        except:
+            import traceback
+            traceback.print_exc()
+        print(qa)
+        return showQAResponse(faq=qa)
 
     def FaqUpdate(self, request, response):
         print("Faq Update Called : %s" % request.timestamp)

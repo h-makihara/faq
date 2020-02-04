@@ -24,13 +24,22 @@ message FaqShowRequest {
     //string timestamp = 1;
 }
 
+message showQARequest {
+    uint32 QID = 1;
+}
+
 // repeated SOMETHING = SOMETHING[]
 message FaqShowResponse {
     repeated FaqComponent faq = 1;
 }
 
+message showQAResponse {
+    FaqComponent faq = 1;
+}
+
 // ルーティング
 service FaqGateway {
     rpc FaqShow (FaqShowRequest) returns (FaqShowResponse) {};
+    rpc showQA (showQARequest) returns (showQAResponse) {};
 }
 

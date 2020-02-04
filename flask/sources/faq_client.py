@@ -36,24 +36,22 @@ def create_faq(stub, qid, share, service_name, category, question, answer):
 
 def show_faqs(stub):
     response = stub.FaqShow(
-        FaqShowRequest(
-            #timestamp=get_timestamp()
-        )
-    )
-    '''
-    i = 1
-    for item in response.faq:
-        table.tableCreate(item, i)
-        i += 1
-    '''
-    #print(response)
-    # レスポンスの中のTODOリストにアクセス
-    #for faq in response:
-    #    print("%s : %s" % (faq.qid, faq.question))
-
-    #print(response.faq)
+            FaqShowRequest(
+                #timestamp=get_timestamp()
+                )
+            )
     return response.faq
 
+# QID 指定で QA 情報を取得してくる
+def show_qa(stub, qid):
+    print("qid is %d", qid)
+    response = stub.showQA(
+            showQARequest(
+                QID=qid
+                )
+            )
+    print(response.faq)
+    return response.faq
 
 def update_faq(stub, faq_name, is_done):
     response = stub.FaqUpdate(
@@ -93,7 +91,18 @@ if __name__ == '__main__':
             Faq更新
                 u|update [faq_name] [y/n]
         """
+        
+        show_qa(stub, 2)
+        for x in dir(stub.showQA):
+            print(x)
+        print(stub.showQA)
+        
 
+        """
+        print("---------")
+        for x in dir(stub.FaqShow):
+            print(x)
+        """
         while True:
             command = input().split()
             if len(command) == 0:

@@ -12,6 +12,20 @@ app = FlaskAPI(__name__)
 def example():
     return {"hello" : "world"}
 
+@app.route('/faq/qa/')
+def getqa():
+    return "your get request allowed"
+
+@app.route('/faq/qa/<int:qid>', methods=['POST'])
+def showFAQ(qid):
+    return "you posted {}\n".format(qid)
+
+    # get qa from grpc server
+    with grpc.insecure_channel('faq-grpc:50051') as channel:
+        stub = FaqGatewayStub(channel)
+        response = faq_client.show_faqs(stub)
+    return json.dumps(faq, default=list)
+
 @app.route('/faq/list')
 def faqList():
     faqList = []

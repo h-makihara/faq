@@ -2,7 +2,7 @@ import pymysql.cursors
 from . import search
 from . import table
 
-def GetData(target, word):
+def makeConn():
     conn = pymysql.connect(
             host='faq-db',
             user='root',
@@ -12,12 +12,22 @@ def GetData(target, word):
             # Dict型で受け取る
             cursorclass=pymysql.cursors.DictCursor
             )
+    return conn
+
+def GetData(target, word):
+    conn = makeConn()
     response = []
     #result = []
-    #result = search.fromQID('1', 'JP')
-    result = search.fromTag('MAILER-DAEMON', conn)
+    result = search.fromTag(word, conn)
     table.tableCreate(result)
     #conn.close()
+    return result
+
+def getFromQID(target, qid):
+    conn = makeConn()
+    response = []
+    result = search.fromQID(qid, 'JP')
+
     return result
 
 def PutData(faq):
