@@ -8,6 +8,12 @@ from google.protobuf.json_format import MessageToJson
 
 app = FlaskAPI(__name__)
 
+
+def makeStub():
+    with grpc.insecure_channel('faq-grpc:50051') as channel:
+        stub = FaqGatewayStub(channel)
+    return stub
+
 @app.route('/hello')
 def example():
     return {"hello" : "world"}
@@ -16,15 +22,29 @@ def example():
 def getqa():
     return "your get request allowed"
 
-@app.route('/faq/qa/<int:qid>', methods=['POST'])
+@app.route('/faq/qa/<int:qid>', methods=['GET'])
 def showFAQ(qid):
-    return "you posted {}\n".format(qid)
-
-    # get qa from grpc server
+    #stub = makeStub()
+    qaJson={}
+    tags=[]
     with grpc.insecure_channel('faq-grpc:50051') as channel:
         stub = FaqGatewayStub(channel)
-        response = faq_client.show_faqs(stub)
-    return json.dumps(faq, default=list)
+        # get qa from grpc server
+        response = faq_client.show_qa(stub, qid)
+        print(type(response))
+        print(response)
+        qaJson["QID"]=response.QID
+        qaJson["serviceName"]=response.service_name
+        qaJson["category"]=response.category
+        qaJson["question"]=response.question
+        qaJson["answer"]=response.answer
+        for tag in response.tag:
+            tags.append(tag)
+        qaJson["tag"]=tags
+    #qaJson = MessageToJson(response)
+    print(type(qaJson))
+    return json.dumps(qaJson, default=list)
+    #return json.dumps(response, default=list)
 
 @app.route('/faq/list')
 def faqList():

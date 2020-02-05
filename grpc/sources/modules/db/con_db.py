@@ -26,9 +26,9 @@ def GetData(target, word):
 def getFromQID(target, qid):
     conn = makeConn()
     response = []
-    result = search.fromQID(qid, 'JP')
+    result = search.fromQID(qid, 'JP', conn)
 
-    return result
+    return result[0]
 
 def PutData(faq):
     response = []

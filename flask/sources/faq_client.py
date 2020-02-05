@@ -44,7 +44,7 @@ def show_faqs(stub):
 
 # QID 指定で QA 情報を取得してくる
 def show_qa(stub, qid):
-    print("qid is %d", qid)
+    print("qid is ", qid)
     response = stub.showQA(
             showQARequest(
                 QID=qid
@@ -93,16 +93,8 @@ if __name__ == '__main__':
         """
         
         show_qa(stub, 2)
-        for x in dir(stub.showQA):
-            print(x)
-        print(stub.showQA)
-        
+        exit()
 
-        """
-        print("---------")
-        for x in dir(stub.FaqShow):
-            print(x)
-        """
         while True:
             command = input().split()
             if len(command) == 0:

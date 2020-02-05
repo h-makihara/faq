@@ -17,6 +17,18 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 def get_timestamp():
     return datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
+def reshapeQA(qa):
+    if type(qa) is list:
+        print("qa is list data")
+        # faq_list から不要な情報を削ぐ
+        for i in range(len(qa)):
+            del qa[i]['scopeID'], qa[i]['serviceID'], qa[i]['categoryID']
+            print('dropped data is \n%s\n\n' % qa[i])
+    elif type(qa) is dict:
+        del qa['scopeID'], qa['serviceID'], qa['categoryID']
+
+    return qa
+
 class RouteFaqServicer(FaqGatewayServicer):
     """
     Faqサーバーの実装
@@ -25,39 +37,9 @@ class RouteFaqServicer(FaqGatewayServicer):
 
     faqs = {}
 
-    # TODOを作成するロジック
-    def FaqCreate(self, request, response):
-        # request.fieldでprotoで定義した値にアクセスできる
-        print("Faq Create Called : %s" % request.timestamp)
-        try:
-            self.faqs[request.faq_name] = FaqComponent(
-                qid = request.qid,
-                share = request.share,
-                service_name = request.service_name,
-                category = request.faq.category,
-                question = request.faq.question,
-                answer = request.faq.answer
-            )
-            is_success = True
-            message = None
-        except:
-            import traceback
-            traceback.print_exc()
-            is_success = False
-            message = "something happen"
-
-        # レスポンスを返す時はreturnするだけで良い
-        return FaqCreateResponse(
-            response=ServerResponseComponent(
-                is_success=is_success,
-                message=message
-            ),
-            timestamp=get_timestamp()
-        )
-
+    # FAQ 一覧を取得するロジック
     def FaqShow(self, request, response):
         #print("Faq Show Called : %s" % request.timestamp)
-        faqs = []
         # response data
         res = FaqShowResponse().faq
         # temp data for response
@@ -78,27 +60,34 @@ class RouteFaqServicer(FaqGatewayServicer):
             import traceback
             traceback.print_exc()
             faq_list = []
-        # faq_list から不要な情報を削ぐ
-        for i in range(len(faq_list)):
-            del faq_list[i]['scopeID'], faq_list[i]['serviceID'], faq_list[i]['categoryID']
-            print('dropped data is \n%s\n\n' % faq_list[i])
-        print('response data is \n%s\n\n\n' % faq_list)
-        res = faq_list
+
+        res = reshapeQA(faq_list)
         #print('returned response!\n%s\n' % res)
         return FaqShowResponse(faq=res)
-        #return FaqShowResponse(faq=res)
 
+    # QID から QA 情報を取得するロジック
     def showQA(self, request, response):
-        res = qaShowResponse().faq
-        tmp = res.add()
-        qa = []
+        res = showQAResponse().faq
         try:
-            qa = con_db.GetFromQID(qid)
+            qa = con_db.getFromQID("JP",request.QID)
+            res = reshapeQA(qa)
+            """
+            res[0]['QID'] = qa.QID
+            res[0].scope = qa.scope
+            res[0].service_name = qa.service_name
+            res[0].category = qa.category
+            res[0].question = qa.question
+            res[0].answer = qa.answer
+            for i in range(len(qa.tag)):
+                res[0].tag.append(qa.tag[i])
+            """
+
         except:
             import traceback
             traceback.print_exc()
-        print(qa)
-        return showQAResponse(faq=qa)
+        print(res)
+
+        return showQAResponse(faq=res)
 
     def FaqUpdate(self, request, response):
         print("Faq Update Called : %s" % request.timestamp)
