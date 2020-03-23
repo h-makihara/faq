@@ -3,6 +3,9 @@ syntax = "proto3";
 
 package faq;
 
+import "google/protobuf/timestamp.proto";
+
+
 // FAQ
 message FaqComponent {
     uint32 QID =1;
@@ -12,6 +15,8 @@ message FaqComponent {
     string question = 5;
     string answer = 6;
     repeated string tag = 7;
+    google.protobuf.Timestamp createAt = 8;
+    google.protobuf.Timestamp updateAt = 9;
 }
 
 // サーバーからのレスポンス(共通)

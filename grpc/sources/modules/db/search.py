@@ -1,4 +1,5 @@
 import pymysql.cursors
+from . import con_db
 from . import get
 
 # 得た情報からどのように情報を得るかを割り振る機能群
@@ -27,7 +28,7 @@ def fromQID(qid, lang, conn):
                 for tagID in range(len(tagIDs)):
                     tagData = get.dataFromKey('tags', 'tagID', tagIDs[j].get('tagID'), conn)
                     tags.append(tagData[0].get('tag'))
-                    j += 1
+                    #j += 1
                 result[i].update({'tag':tags})
 
                 # あと欲しいのは service_name category
@@ -40,7 +41,7 @@ def fromQID(qid, lang, conn):
                 category = get.dataFromKey('categories', 'categoryID', categoryID[0].get('categoryID'), conn)
                 result[i].update(category[0])
                 #print(result[i])
-                i += 1
+                #i += 1
     finally:
         # print is debug data
         return result
@@ -50,6 +51,7 @@ def fromTag(tag, conn):
     # tagID から tagID を持つ QID を tagMap から抽出
     # QID から Q と A を抽出
     # 上記をまとめて return する
+    tagMaps=[]
     tags = get.dataFromKey('tags', 'tag', tag, conn)
     print(len(tags))
     result = []
@@ -71,25 +73,83 @@ def fromCategory(category, conn):
     # categoryID から Map テーブルよりQID一覧を抽出
     # QID から Q と A を抽出 (fromQID(qid, lang) function)
     # 上記をまとめて return する
-    category = get.dataFromKey('categories', 'category', category, conn)
+    result = []
+    category = get.data('categories', 'category', '=', category, conn)
+    print(type(category))
+    if(category != []):
+        try:
+            with conn.cursor() as cursor:
+                query = "SELECT category FROM categories WHERE categoryID = %s"
+                cursor.execute(query, (category,))
+                result = cursor.fetchall()
+        finally:
+            return result
+
+def fromService(word, conn):
+    result = []
+    services = []
+    qids = []
     try:
-        with conn.cursor() as cursor:
-            query = "SELECT category FROM categories WHERE categoryID = %s"
-            cursor.execute(query, (category,))
-            result = cursor.fetchall()
+        services = get.data('services', 'service_name', '=', word, conn)
+        for service in services:
+            with conn.cursor() as cursor:
+                result = get.dataFromKey('JP', 'serviceID', service.get('serviceID'), conn)
+                
     finally:
+        print("in function result is \n %s \n" % result)
         return result
+
+
+def fromQA(word, conn):
+    qa = get.data('JP', 'CONCAT(answer,question)', 'LIKE', '%'+word+'%', conn)
+    return qa
 
 def fromWord(word, lang, conn):
     # word から QID 一覧を取得
     # QID から tagMap, categoryMap を使ってそれぞれのID取得
     # tagID, categoryID から tag, category を抽出
     # 上記をまとめて return する
-    try:
-        with conn.cursor() as cursor:
-            query = "SELECT category FROM %s WHERE question,answer LIKE %s"
-            cursor.execute(query, (lang, word,))
-            result = cursor.fetchall()
-    finally:
-        return result
+
+    # 検索対象 : categories, services, tags, JP
+
+    qids = []
+    result = []
+    result = fromTag(word, conn)
+    if(len(result) > 0):
+        for i in range(len(result)):
+            qids.append(result[i]['QID'])
+    
+    result = fromCategory(word, conn)
+    if(len(result) > 0):
+        for i in range(len(result)):
+            qids.append(result[i]['QID'])
+
+    result = fromService(word, conn)
+    if(len(result) > 0):
+        for i in range(len(result)):
+            print("insert data is %s \n" % result[i]['QID'])
+            qids.append(result[i]['QID'])
+    
+    result = fromQA(word, conn)
+    if(len(result) > 0):
+        for i in range(len(result)):
+            qids.append(result[i]['QID'])
+    
+    
+    result.clear()
+
+    for qid in set(qids):
+        toDict = fromQID(qid, lang, conn)
+        result.append(toDict[0])
+
+    print("get qids is %s\n" % set(qids))
+    return result
+
+if __name__ == '__main__':
+    conn = con_db.makeConn()
+    lang = "JP"
+    #word = "MAILER-DAEMON"
+    #word = "Mail"
+    word = "blog"
+    print(fromWord(word, lang, conn))
 

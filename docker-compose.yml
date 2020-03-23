@@ -84,6 +84,7 @@ services:
     container_name: faq-db
     volumes:
       - 'faq_vol:/var/lib/mysql:rw'
+      - './db/:/var/tmp:rw'
     labels:
       # traefik で監視・リバースプロキシしない
       - 'traefik.enable=false'

@@ -23,6 +23,7 @@ def reshapeQA(qa):
         # faq_list から不要な情報を削ぐ
         for i in range(len(qa)):
             del qa[i]['scopeID'], qa[i]['serviceID'], qa[i]['categoryID']
+            qa[i]['createAt'] = qa[i]['createAt'].strftime('%Y/%m/%d')
             print('dropped data is \n%s\n\n' % qa[i])
     elif type(qa) is dict:
         del qa['scopeID'], qa['serviceID'], qa['categoryID']

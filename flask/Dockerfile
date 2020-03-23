@@ -15,7 +15,6 @@ RUN apk update \
     && apk add -U --no-cache perl openssl \
     && apk add --no-cache --virtual .base\
                                     git \
-                                    mysql-client \
                                     python3 \
                                     make \
                                     linux-headers \
@@ -29,16 +28,12 @@ RUN apk add --no-cache --virtual .build-deps \
                                  gcc \
                                  musl-dev \
                                  python3-dev \
-                                 protobuf \
-                                 go
-
-RUN export GOPATH=/usr/local/bin
-RUN go get github.com/fullstorydev/grpcurl
-RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl
+                                 protobuf 
 
 # test python client
 RUN pip3 install --upgrade pip \
     && pip3 install prettytable \
     && pip3 install pymysql \
     && pip3 install cython \
+    && pip3 install Flask-API \
     && pip3 install grpcio-tools
