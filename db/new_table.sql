@@ -7,6 +7,9 @@ create table categoryMap (
 
 insert into categoryMap (QID, categoryID) values(1, 1);
 insert into categoryMap (QID, categoryID) values(2, 1);
+insert into categoryMap (QID, categoryID) values(3, 1);
+insert into categoryMap (QID, categoryID) values(4, 1);
+insert into categoryMap (QID, categoryID) values(5, 1);
 
 create table categories (
     categoryID smallint unsigned not null primary key unique auto_increment,
@@ -24,6 +27,9 @@ create table tagMap (
 insert into tagMap (QID, tagID) values(1, 1);
 insert into tagMap (QID, tagID) values(1, 2);
 insert into tagMap (QID, tagID) values(2, 2);
+insert into tagMap (QID, tagID) values(3, 1);
+insert into tagMap (QID, tagID) values(4, 1);
+insert into tagMap (QID, tagID) values(5, 1);
 
 create table tags (
     tagID tinyint unsigned not null primary key auto_increment,

@@ -34,12 +34,23 @@ def create_faq(stub, qid, share, service_name, category, question, answer):
         print("Error : " + response.response.message)
 
 
-def show_faqs(stub):
-    response = stub.FaqShow(
-            FaqShowRequest(
-                #timestamp=get_timestamp()
+# 最初に呼ばれる関数
+# すべてのFAQを一覧として表示する（暫定）
+# 将来的にはここに人気のFAQや機械学習を取り入れた情報を出す
+def initial_show(stub):
+    response = stub.showAll(
+            showAllRequest(
                 )
             )
+    return response.faq
+
+def search_word(stub, word):
+    response = stub.searchWord(
+            searchWordRequest(
+                    word=word
+                )
+            )
+
     return response.faq
 
 # QID 指定で QA 情報を取得してくる

@@ -3,7 +3,6 @@ syntax = "proto3";
 
 package faq;
 
-import "google/protobuf/timestamp.proto";
 
 
 // FAQ
@@ -15,26 +14,33 @@ message FaqComponent {
     string question = 5;
     string answer = 6;
     repeated string tag = 7;
-    google.protobuf.Timestamp createAt = 8;
-    google.protobuf.Timestamp updateAt = 9;
 }
 
-// サーバーからのレスポンス(共通)
-message ServerResponseComponent {
-    bool is_success = 1;
-    string message = 2;
-}
-
-message FaqShowRequest {
+message faqShowRequest {
     //string timestamp = 1;
 }
 
+message showAllRequest {
+}
+
+// 検索ワードを受けるリクエスト宣言
+// Repeatedにしたほうがいいかは検討の余地あり
+message searchWordRequest {
+    string word = 1;
+}
+
+// QID指定で取りに来た場合のリクエスト宣言
 message showQARequest {
     uint32 QID = 1;
 }
 
+// 複数FAQを返す際の共通レスポンス
+message multiFaqResponse {
+    repeated FaqComponent faq = 1;
+}
+
 // repeated SOMETHING = SOMETHING[]
-message FaqShowResponse {
+message faqShowResponse {
     repeated FaqComponent faq = 1;
 }
 
@@ -44,7 +50,10 @@ message showQAResponse {
 
 // ルーティング
 service FaqGateway {
-    rpc FaqShow (FaqShowRequest) returns (FaqShowResponse) {};
+    // 将来的に削除する宣言(showAllに寄せるか、別途目的を明確化した宣言を作る)
+    rpc faqShow (faqShowRequest) returns (faqShowResponse) {};
+    rpc showAll (showAllRequest) returns (multiFaqResponse) {};
+    rpc searchWord (searchWordRequest) returns (multiFaqResponse) {};
     rpc showQA (showQARequest) returns (showQAResponse) {};
 }
 

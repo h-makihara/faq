@@ -1,4 +1,5 @@
 from flask_api import FlaskAPI
+from flask import request
 from . import faq_client
 from .protos.faq_pb2 import *
 from .protos.faq_pb2_grpc import FaqGatewayStub
@@ -46,13 +47,29 @@ def showFAQ(qid):
     return json.dumps(qaJson, default=list)
     #return json.dumps(response, default=list)
 
+
 @app.route('/faq/list')
 def faqList():
+    word = request.args.get('word', type=str)
+
+
+
     faqList = []
+
+
     with grpc.insecure_channel('faq-grpc:50051') as channel:
         stub = FaqGatewayStub(channel)
-        response = faq_client.show_faqs(stub)
-        #response = toJson(faq_client.show_faqs(stub))
+        # 検索ワードがある場合
+        if word is not None:
+            print("---\nsearch query is %s\n---\n" % word)
+            response = faq_client.search_word(stub, word)
+            
+        # 検索ワードがない場合、初期アクセスと判断
+        else:
+            print("---\nword is not set.\ninitial showing...\n---\n")
+            response = faq_client.initial_show(stub)
+            #response = toJson(faq_client.show_faqs(stub))
+        
         print('flask server table printer')
         print(response)
         for item in response:
@@ -79,6 +96,8 @@ def faqList():
                 print(item.tag[tagNum])
         print("faqList is \n\n%s" % faqList)
         '''
+        print("faqlist printing...\n\n%s\n\n" % faqList)
+
     return json.dumps(faqList, default=list)
 
 if __name__ == "__main__":

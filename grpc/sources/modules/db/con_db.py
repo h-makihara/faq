@@ -18,7 +18,8 @@ def GetData(target, word):
     conn = makeConn()
     response = []
     #result = []
-    result = search.fromTag(word, conn)
+    #result = search.fromTag(word, conn)
+    result = search.fromWord(word, 'JP', conn)
     table.tableCreate(result)
     #conn.close()
     return result
