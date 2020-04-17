@@ -50,6 +50,12 @@ RUN yarn add google-protobuf \
              @types/google-protobuf \
              grpc-web
 
+# material m\icon
+WORKDIR /tmp
+RUN wget https://github.com/google/material-design-icons/releases/download/3.0.1/material-design-icons-3.0.1.zip
+RUN unzip material-design-icons-3.0.1.zip
+RUN cp -R material-design-icons-3.0.1/iconfont /app/src/assets/
+
 # angular
 #RUN npm install -g webpack \
 #                   webpack-dev-server \

@@ -164,3 +164,8 @@ EN,CNはQIDで検索した場合、作ってなければ存在しない場合が
 faq_pb2_grpc.py の faq_pb2 を import する行が、 Python の現在の仕様で  
 import に失敗する  
 この場合、 4 行目の行頭に from . を追記する。  
+  
+material icon をローカルで表示するためにVue.jsコンテナ内で、iconをDL, 解答して
+assetsディレクトリに再配置しているのを忘れないこと  
+  
+その他configがVueにあわせて点在しているので、少しずつまとめていく
