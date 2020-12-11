@@ -19,6 +19,7 @@ RUN apk update \
                                     bash \
                                     mysql-client \
                                     python3 \
+				    py3-pip \
                                     make \
                                     linux-headers \
                                     build-base 

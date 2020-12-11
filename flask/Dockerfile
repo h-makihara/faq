@@ -16,7 +16,8 @@ RUN apk update \
     && apk add --no-cache --virtual .base\
                                     git \
                                     python3 \
-                                    make \
+                                    py3-pip \
+				    make \
                                     linux-headers \
                                     build-base
 

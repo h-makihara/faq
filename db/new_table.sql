@@ -62,7 +62,8 @@ create table JP (
     question varchar(255) not null ,
     answer varchar(2048) not null,
     createAt DATE not null,
-    updateAt DATE not null
+    updateAt DATE not null,
+    good smallint unsigned not null
 )DEFAULT CHARSET=utf8 auto_increment=1;
 
 insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
@@ -73,7 +74,8 @@ insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
         '本サービスは、大量送信を想定したサービスではありません。
         直接お客様サーバよりインターネットに向けて、弊社設備を介さず送信するようご検討ください。',
         '2020-03-16',
-        '2020-03-16'
+        '2020-03-16',
+	0
 );
 
 insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
@@ -85,7 +87,8 @@ insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
         本サービスがアドレスを漏洩し、海外の怪しい人からメールが届いているわけではありません。
         今一度宛先情報が正しいかご確認ください。',
         '2020-03-15',
-        '2020-03-16'
+        '2020-03-16',
+	0
 );
 
 insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
@@ -99,7 +102,8 @@ insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
         - [DMARCがもっとよくわかる！概要とレコードの読み方](https://sendgrid.kke.co.jp/blog/?p=3137)
         ',
         '2020-03-14',
-        '2020-03-15'
+        '2020-03-15',
+	0
 );
 
 
@@ -114,7 +118,8 @@ insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
         - [DMARCがもっとよくわかる！概要とレコードの読み方](https://sendgrid.kke.co.jp/blog/?p=3137)
         ',
         '2020/03/01',
-        '2020/03/04'
+        '2020/03/04',
+	0
 );
 
 
@@ -127,7 +132,8 @@ insert into JP (scopeID, serviceID, question, answer, createAt, updateAt)
         ログインできない画面、ログインできないアカウント、時間帯、接続元のIPアドレスを合わせて改めてご連絡ください。
         ',
         '2020/03/16',
-        '2020/03/16'
+        '2020/03/16',
+	0
 );
 
 create table EN (
@@ -137,7 +143,8 @@ create table EN (
     question varchar(255) not null ,
     answer varchar(2048) not null,
     createAt DATE not null,
-    updateAt DATE not null
+    updateAt DATE not null,
+    good smallint unsigned not null
 )DEFAULT CHARSET=utf8 auto_increment=1;
 
 
@@ -148,7 +155,8 @@ create table CN (
     question varchar(255) not null ,
     answer varchar(2048) not null,
     createAt DATE not null,
-    updateAt DATE not null
+    updateAt DATE not null,
+    good smallint unsigned not null
 )DEFAULT CHARSET=utf8 auto_increment=1;
 
 
